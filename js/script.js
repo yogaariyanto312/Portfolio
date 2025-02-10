@@ -21,29 +21,23 @@ toggleButton.addEventListener("click", () => {
 // end darkmode
 
 // text animation
-const text = document.querySelector(".fancy");
-const strText = text.textContent;
-const splitText = strText.split("");
-text.textContent = "";
-for (let i = 0; i < splitText.length; i++) {
-    text.innerHTML += "<span>" + splitText[i] + "</span>";
-}
-let char = 0;
-let timer = setInterval(onTick, 50);
+var typed = new Typed("#perkenalan", {
+    strings: ["Halo, Selamat Datang!", "Nama Saya Yoga Ariyanto", "Salam Kenal Ya.."],
+    typeSpeed: 95,
+    backSpeed: 60,
+    loop: true
+});
+// end text animation
 
-function onTick() {
-    const span = text.querySelectorAll("span")[char];
-    span.classList.add("fade");
-    char++;
-    if (char === splitText.length) {
-        complete();
-        return;
-    }
-}
+// title animation
+let titleText = "Portfolio | YogaAriyanto";
+let index = 0;
 
-function complete() {
-    clearInterval(timer);
-    timer = null;
+function scrollTitle() {
+    document.title = titleText.substring(index) + titleText.substring(0, index);
+    index = (index + 1) % titleText.length;
+    setTimeout(scrollTitle, 100); // Kecepatan animasi (ms)
 }
+scrollTitle();
 // end title animation
 
