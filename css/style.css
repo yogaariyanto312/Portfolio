@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+/* End google fonts */
+
+/* ----------bootstrap-navbar-css------------ */
+
+.nav-link {
+    /* color: #020202; */
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    
+    display: inline-block;
+    padding: 15px 20px;
+    position: relative;
+  }
+   .nav-link:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #000000;
+    transition: width 0.5s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+  .nav-link:hover:after { 
+    width: 100%; 
+    left: 0; 
+  }
+.logo {
+    font-size: 1.2em;
+    font-family: 'Comic Neue', cursive;
+    letter-spacing: 0.25em;
+}
+/* ----------end bootstrap-navbar-css------------ */
+
+/* hero */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* End hero */
+
+/* ----------dark-mode------------ */
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+.dark-mode .nav-link-text {
+    color: white;
+}
+.dark-mode .nav-link:after {
+    background: white;
+}
+.dark-mode .logo {
+    color: white;
+}
+
+.dark-mode .navbar {
+    background-color: #333 !important;
+}
+.dark-mode .navbar-toggler-icon {
+    background-color: white;
+}
+.darkmode {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px
+}
+.darkmode input {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+.dark-mode .navbar {
+    background-color: #333 !important;
+} 
+.dark-mode body {
+    background-color: #222;
+    color: white;
+}
+/* ----------end dark-mode------------ */
+
+/* responsive css */
+@media (max-width: 768px) {
+    .nav-link {
+        padding: 10px 15px;
+    }
+    .logo {
+        font-size: 1em;
+    }
+}
+/* End responsive css */
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 24px;
+    background-color: black;
+    animation: blink 0.7s infinite;
+}
