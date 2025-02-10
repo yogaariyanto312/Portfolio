@@ -28,16 +28,3 @@ var typed = new Typed("#perkenalan", {
     loop: true
 });
 // end text animation
-
-// title animation
-let titleText = "Portfolio | YogaAriyanto";
-let index = 0;
-
-function scrollTitle() {
-    document.title = titleText.substring(index) + titleText.substring(0, index);
-    index = (index + 1) % titleText.length;
-    setTimeout(scrollTitle, 100); // Kecepatan animasi (ms)
-}
-scrollTitle();
-// end title animation
-
