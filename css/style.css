@@ -231,11 +231,11 @@ body.dark-mode {
         flex-direction: column-reverse;
     }
     .hero-info h1 {
-        margin-left: 85px;
+        margin-left: 82px;
         font-size: 24px;
     }
     .hero-info p {
-        margin-left: 71px;
+        margin-left: 70px;
         font-size: 16px;
     }
     .typeriter div p {
