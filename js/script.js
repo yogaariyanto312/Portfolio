@@ -19,12 +19,3 @@ toggleButton.addEventListener("click", () => {
 }
 );
 // end darkmode
-
-// text animation
-var typed = new Typed("#perkenalan", {
-    strings: ["Halo, Selamat Datang!", "Nama Saya Yoga Ariyanto", "Salam Kenal Ya.."],
-    typeSpeed: 95,
-    backSpeed: 60,
-    loop: true
-});
-// end text animation

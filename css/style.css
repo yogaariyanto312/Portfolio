@@ -9,6 +9,11 @@ body {
     padding: 0;
     font-family: 'Comic Neue', cursive;
 }
+
+a{
+    text-decoration: none;
+}
+
 /* google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 /* End google fonts */
@@ -50,7 +55,8 @@ body {
 
 /* ----------dark-mode------------ */
 body.dark-mode {
-    background-color: #121212;
+    /* background-color: #121212; */
+    background-color: #11121a;
     color: white;
 }
 .dark-mode .nav-link-text {
@@ -64,7 +70,7 @@ body.dark-mode {
 }
 
 .dark-mode .navbar {
-    background-color: #333 !important;
+    background-color: #11121a;
 }
 .dark-mode .navbar-toggler-icon {
     background-color: white;
@@ -80,47 +86,167 @@ body.dark-mode {
     width: 0;
     visibility: hidden;
 }
-.dark-mode .navbar {
-    background-color: #333 !important;
-} 
-.dark-mode body {
-    background-color: #222;
-    color: white;
-}
 /* ----------end dark-mode------------ */
+
+/* hero */
+.hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    height: 100vh;
+    padding: 60px 20% 0;
+}
+
+.hero-info h1{
+    font-size: 55px;
+}
+
+.hero-info p{
+    font-size: 23px;
+    font-weight: 500;
+    margin: -20px 0 25px;
+}
+
+.hero-info .hero-btn{
+    display: flex;
+    align-items: center;
+}
+
+.btn-social{
+    display: inline-block;
+    padding: 10px 30px;
+    background: blue;
+    /* border: 2px solid #3674B5; */
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgb(5, 16, 110);
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.btn-social:hover{
+    background: white;
+    color: blue;
+    transform: scale(1.05);
+}
+
+.hero-info .hero-btn .social{
+    margin-left: 10px;
+}
+
+.hero-info .hero-btn .social a{
+    display: inline-block;
+    padding: 2px 8px;
+    border: 2px solid blue;
+    border-radius: 50%;
+    color: blue;
+    font-size: 20px;
+    margin: 0 8px;
+    transition: 0.5s ease;
+}
+
+.hero-info .hero-btn .social a:hover{
+    background: blue;
+    color: white;
+    box-shadow: 0 0 10px blue;
+    transform: scale(1.1);
+}
+
+
+.hero-img .img-item{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-img .img-item img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: contain;
+    box-shadow: 5px 5px 15px blue;
+}
+
+
+
+.typeriter {
+    display: flex;
+}
+
+.typeriter div p {
+    margin-top: 5px;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 32px;
+    /* keeps on a singgle line */
+    white-space: nowrap;
+    /* The cursor */
+    border-right: 1px solid;
+    /* steps = number of characters */
+    animation: typing 3s steps(22) forwards,
+    blink 1s step-end infinite;
+    /* 3s = duration of typing effect */
+    /* 22 = number of characters */
+    /* 1s = duration of cursor blinking */
+    /* step-end = cursor style */
+    /* infinite = blinking forever */
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+/* End hero */
+
 
 /* responsive css */
 @media (max-width: 768px) {
     .nav-link {
         padding: 10px 15px;
     }
+    .navbar-toggler i{
+        color: #fff;
+    }
     .logo {
         font-size: 1em;
     }
+    .hero {
+        padding: 40px 5%;
+        flex-direction: column-reverse;
+    }
+    .hero-info h1 {
+        margin-left: 85px;
+        font-size: 24px;
+    }
+    .hero-info p {
+        margin-left: 71px;
+        font-size: 16px;
+    }
+    .typeriter div p {
+        margin-left: 10px;
+        font-size: 18px;
+    }
+    .hero-btn{
+        display: flex;
+        flex-direction: column;
+    }
+    .hero-btn .social{
+        margin-top: 25px;
+    }
 }
 /* End responsive css */
-
-/* hero */
-.hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-}
-.hero h1 {
-    font-size: 3em;
-    font-family: 'Comic Neue', cursive;
-}
-.hero p {
-    font-size: 12px;
-    font-family: 'Comic Neue', cursive;
-}
-
-.hero .hero-img {
-    width: 50%;
-    display: flex;
-}
-
-
-
-/* End hero */
