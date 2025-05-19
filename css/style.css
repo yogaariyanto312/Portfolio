@@ -72,13 +72,23 @@ body{
     width: 100%; 
     left: 0; 
   }
+
+
+  .nav-github-btn {
+    display: flex;
+    text-align: end;
+    font-size: 29px;
+    color: #0f0f0f;
+  }
 /* end navbar */
 
 /* hero */
 .hero{
     color: #000000;
-    background-color: #eae4d596;
+    /* background-color: #eae4d596; */
+    background-color: var(--background-color);
     display: flex;
+    font-family: 'poppins';
     align-items: center;
     justify-content: center;
     gap: 50px;
@@ -144,8 +154,8 @@ body{
     height: 50px;
     border: 2px solid #1a1aff;
     border-radius: 50%;
-    color: #1a1aff;
-    font-size: 14px;
+    color: #000000;
+    font-size: 26px;
     transition: 0.3s ease;
     text-decoration: none;
 }
@@ -179,6 +189,35 @@ body{
     object-fit: cover;
     border-radius: 50%;
 }
+
+.hero-info span {
+    color: #000000;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    font-family: 'poppins';
+}
+
+.wave {
+    display: inline-block;
+    animation: wave-animation 2s infinite;
+    transform-origin: 70% 70%;
+  }
+
+  @keyframes wave-animation {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+  }
+  /* end hero */
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -312,6 +351,8 @@ body{
     overflow: hidden;
     display: inline-block;
   }
+
+  
 
   #typewriter.typing {
     animation: typing 4s steps(40, end), blink .75s step-end infinite;
