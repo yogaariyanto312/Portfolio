@@ -80,6 +80,7 @@ body{
     font-size: 29px;
     color: #0f0f0f;
   }
+
 /* end navbar */
 
 /* hero */
@@ -351,11 +352,30 @@ body{
     overflow: hidden;
     display: inline-block;
   }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #000000;
+    }
+  }
 
   
 
   #typewriter.typing {
-    animation: typing 4s steps(40, end), blink .75s step-end infinite;
+    animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
   }
 /* end typewriter */
 
