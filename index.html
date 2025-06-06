@@ -12,6 +12,10 @@
       <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> <!-- Bootstrap -->
       <!-- end stylesheet -->
 
+      <!-- animation -->
+       <link rel="stylesheet" href="node_modules/aos/dist/aos.css">
+      <!-- end animation -->
+
       <!-- google font -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,22 +36,32 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg shadow-sm fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="#home">YogaAriyanto</a>
+          <a data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine" class="navbar-brand" href="#home">YogaAriyanto</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon "></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav text-center ms-auto">
-              <li class="nav-item">
+              <li data-aos="fade-down"
+              data-aos-easing="linear"
+              data-aos-duration="300" class="nav-item">
                 <a class="nav-link active" href="index.html">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">About</a>
+              <li data-aos="fade-down"
+              data-aos-easing="linear"
+              data-aos-duration="600" class="nav-item">
+                <a class="nav-link active" href="aboutme.html">About</a>
               </li>
-              <li class="nav-item">
+              <li data-aos="fade-down"
+              data-aos-easing="linear"
+              data-aos-duration="950" class="nav-item">
                 <a class="nav-link active" href="#">Portfolio</a>
               </li>
-              <li class="nav-item">
+              <li data-aos="fade-down"
+              data-aos-easing="linear"
+              data-aos-duration="1300" class="nav-item">
                 <a class="nav-link active" href="#">Blog</a>
               </li>
             </ul>
@@ -59,12 +73,16 @@
     <!-- hero -->
   <div class="hero">
     <div class="hero-info">
+      <div data-aos="fade-up">
         <h1>YogaAriyanto</h1>
+      </div>
+      <div data-aos="fade-up-right">
         <div id="typewriter"><span id="textwrite"></span></div>
         <p class="hero-info">Welcome to my portfolio<span class="wave">👋🏼</span></p>
+      </div>
         <div class="hero-btn">
-            <a href="#" class="btn-social">Download CV</i></a>
-            <div class="social">
+            <a href="#" data-aos="fade-right" class="btn-social">Download CV</i></a>
+            <div data-aos="fade-right" class="social">
                 <a href="https://www.linkedin.com/in/yoga-ariyanto-5a8397280/"><i class='bx bxl-linkedin'></i></a>
                 <a href="https://github.com/Yogaariyanto312"><i class='bx bxl-github '></i></a>
                 <a href="https://www.instagram.com/yoga_ariyanto312/"><i class='bx bxl-instagram'></i></a>
@@ -73,7 +91,7 @@
         </div>
     </div>
     <div class="hero-img">
-        <div class="img-item">
+        <div data-aos="fade-up" class="img-item">
             <img src="asset/profile/profile1.jpg" alt="">
         </div>
     </div>
@@ -87,7 +105,7 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- end javascript -->
  <!-- animation -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="node_modules/aos/dist/aos.js"></script>
     <script>
       AOS.init();
     </script>

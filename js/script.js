@@ -36,4 +36,18 @@ type();
 
 // end typewriter
 
+// skill
+  function showTab(tab) {
+    document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.skills-grid').forEach(grid => grid.classList.add('hidden'));
+
+    document.getElementById(tab).classList.remove('hidden');
+    if (tab === 'tech') {
+      document.querySelectorAll('.tab')[0].classList.add('active');
+    } else {
+      document.querySelectorAll('.tab')[1].classList.add('active');
+    }
+  }
+
+
 

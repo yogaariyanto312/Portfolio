@@ -13,11 +13,15 @@
       <!-- end stylesheet -->
 
       <!-- google font -->
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
       <!-- end google font -->
+       <!-- animation -->
+       <link rel="stylesheet" href="node_modules/aos/dist/aos.css">
+      <!-- end animation -->
 
       <!-- boxicons -->
       <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css">
@@ -29,34 +33,89 @@
 
   </head>
 <body id="home">
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg shadow-sm fixed-top">
-        <div class="container">
-          <a class="navbar-brand" href="#home">YogaAriyanto</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#"></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Pricing</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Disabled</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    <!-- end navbar -->
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg shadow-sm fixed-top">
+    <div class="container">
+      <a data-aos="fade-right"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine" class="navbar-brand" href="#home">YogaAriyanto</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav text-center ms-auto">
+          <li data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="300" class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="600" class="nav-item">
+            <a class="nav-link active" href="aboutme.html">About</a>
+          </li>
+          <li data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="950" class="nav-item">
+            <a class="nav-link active" href="#">Portfolio</a>
+          </li>
+          <li data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="1300" class="nav-item">
+            <a class="nav-link active" href="#">Blog</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- end navbar -->
 
+    <!-- hero -->
+     <div class="container-fluid"data-aos="fade-right">
+    <div class="about-container">
+      <h2>About Me</h2>
+      <div class="content">
+        <div class="profile-image">
+          <img src="asset/profile/profile1.jpg" alt="Profile Picture" />
+        </div>
+        <div class="description">
+          <p>Halo! Nama saya YogaAriyanto. Saya adalah seorang profesional di bidang Quality Control Engineering dengan pengalaman langsung dalam memastikan kualitas, performa, dan kepatuhan produk di lingkungan manufaktur. Saya memiliki perhatian tinggi terhadap detail dan berkomitmen untuk memberikan hasil kerja terbaik.</p>
+          <p>Selain berpengalaman di bidang QC, saya juga memiliki kemampuan di bidang IT support dan jaringan komputer. Saya terbiasa menangani troubleshooting perangkat keras dan lunak, mengelola jaringan lokal, serta memberikan solusi praktis untuk meningkatkan efisiensi sistem.</p>
+          <p>Saya percaya bahwa kemampuan di bidang quality engineering dan teknologi informasi adalah kombinasi yang kuat. Dengan menggabungkan keduanya, saya mampu melihat masalah dari dua sisi—presisi dan inovasi. Saya selalu siap belajar, beradaptasi, dan memberikan kontribusi terbaik bagi tim yang menjunjung tinggi kualitas dan teknologi.</p>
+        </div>
+      </div>
+    </div>
+    <div class="skills-section">
+      <h2>Skills</h2>
     
+      <div class="tab-menu">
+        <button class="tab active" onclick="showTab('tech')">Tech Stack</button>
+        <button class="tab" onclick="showTab('tools')">Tools</button>
+      </div>
+    
+      <!-- Tech Stack -->
+      <div id="tech" class="skills-grid">
+        <div class="skill-card"><img src="asset/asset1/html.png" alt="HTML"><span>HTML</span></div>
+        <div class="skill-card"><img src="asset/asset1/css-3.png" alt="CSS"><span>CSS</span></div>
+        <div class="skill-card"><img src="asset/asset1/php.png" alt="PHP"><span>PHP</span></div>
+        <div class="skill-card"><img src="asset/asset1/java.png" alt="JavaScript"><span>JavaScript</span></div>
+        <div class="skill-card"><img src="asset/asset1/laravel-2.svg" alt="Laravel"><span>Laravel</span></div>
+        <div class="skill-card"><img src="asset/asset1/tailwind-css-2.svg" alt="Tailwind"><span>Tailwind</span></div>
+        <div class="skill-card"><img src="asset/asset1/bootstrap-logo-shadow.png" alt="Bootstrap"><span>Bootstrap</span></div>
+      </div>
+    
+      <!-- Tools -->
+      <div id="tools" class="skills-grid hidden">
+        <div class="skill-card"><img src="asset/asset1/git-icon.svg" alt="Git"><span>Git</span></div>
+        <div class="skill-card"><img src="asset/asset1/github-icon-1.svg" alt="GitHub"><span>GitHub</span></div>
+        <div class="skill-card"><img src="asset/asset1/npm.svg" alt="NPM"><span>NPM</span></div>
+        <div class="skill-card"><img src="asset/asset1/mysql-logo-pure.svg" alt="MySQL"><span>MySQL</span></div>
+      </div>
+    </div>
+    
+    
+  </div>
+    <!-- end hero -->
    
 
 <!-- javascript -->
