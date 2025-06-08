@@ -350,8 +350,8 @@ body{
   }
   
   .tab {
-    background-color: #130404;
-    color: #ccc;
+    background-color: #f7e9c8;
+    color: #000000;
     padding: 10px 16px;
     margin-right: 10px;
     border: none;
@@ -365,15 +365,11 @@ body{
     background-color: gold;
     color: black;
   }
+
   
   .tab.active {
-    background-color: gold;
-    color: black;
-  }
-  
-  .tab.active {
-    background-color: #1f1f1f;
-    color: #f1c40f;
+    background-color: #ffdb87;
+    color: #000000;
   }
   
   .skills-grid {
@@ -383,7 +379,7 @@ body{
   }
   
   .skill-card {
-    background-color: #393E46;
+    background-color: #f1e8d188;
     border: 1px solid #f1c40f;
     border-radius: 8px;
     padding: 20px;
@@ -393,6 +389,7 @@ body{
   
   .skill-card:hover {
     transform: scale(1.05);
+    text-align: center;
   }
   
   .skill-card img {
@@ -404,7 +401,7 @@ body{
   .skill-card span {
     display: block;
     font-size: 14px;
-    color: #fff;
+    color: #020202;
     font-weight: 500;
   }
   .hidden {
