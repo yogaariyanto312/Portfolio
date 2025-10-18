@@ -34,10 +34,3 @@ Built with 💻 HTML, CSS, JavaScript + Bootstrap & AOS – this site showcases 
 | Responsive Design | GitHub Pages / Vercel |
 
 ---
-
-## 📸 Screenshot
-
-![Portfolio Preview](asset/asset1/Screenshot%202025-07-08%20022157.png)  
-> *Tambahkan screenshot website lo di folder `assets` dan ganti link di atas biar makin kece.*
-
----
