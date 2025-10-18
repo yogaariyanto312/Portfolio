@@ -1,0 +1,59 @@
+    :root{ --bg:#0e0f13; --grid:#181a21; --snake:#4ade80; --snake-dark:#22c55e; --food:#f43f5e; --text:#e5e7eb; --accent:#38bdf8; --ctl:72px; --gap:10px }
+    *{ box-sizing:border-box }
+    html,body{ height:100%; margin:0; background:var(--bg); color:var(--text); font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji" }
+    #wrap{ position:fixed; inset:0; display:grid; grid-template-rows:auto 1fr auto; min-height:100dvh }
+    header, footer{ display:flex; justify-content:space-between; align-items:center; padding:10px 14px; gap:10px }
+    header{ background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0)); border-bottom:1px solid rgba(255,255,255,.06) }
+    footer{ background:linear-gradient(0deg, rgba(255,255,255,.04), rgba(255,255,255,0)); border-top:1px solid rgba(255,255,255,.06) }
+    .pill{ display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(255,255,255,.12); padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.04) }
+    .btn{ cursor:pointer; user-select:none; padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); color:var(--text) }
+    .btn:hover{ background:rgba(255,255,255,.1) }
+    .btn.primary{ border-color: transparent; background:var(--accent); color:#0b1320; font-weight:700 }
+    .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap }
+
+    /* Canvas background off (no grid / no border) */
+    #canvas{ width:100%; height:100%; display:block; touch-action:none; background:none; }
+
+    #overlay{ position:absolute; inset:0; display:grid; place-items:center; pointer-events:none }
+    #overlay .card{ pointer-events:auto; padding:18px; background:rgba(14,15,19,.75); border:1px solid rgba(255,255,255,.08); border-radius:14px; backdrop-filter: blur(8px); text-align:center; min-width:260px }
+    #overlay.hidden{ display:none }
+    #selftest{ position:fixed; left:8px; bottom:8px; background:rgba(0,0,0,.6); color:#fff; font-size:12px; padding:6px 8px; border-radius:8px; display:none; z-index:9999 }
+    #selftest.show{ display:inline-block }
+    select{ background:#0b1320; color:var(--text); border:1px solid rgba(255,255,255,.16); border-radius:8px; padding:6px 8px }
+    label{ display:inline-flex; align-items:center; gap:6px }
+    .hidden{ display:none !important }
+
+    /* === Mobile Controls === */
+    /* D‑Pad: inverted‑T, keyboard‑like keycaps */
+    #controls{
+      position:absolute; left:50%; bottom:calc(14px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+      display:grid; grid-template-columns:repeat(3,var(--ctl)); grid-template-rows:repeat(2,var(--ctl));
+      gap:var(--gap); align-items:center; justify-items:center; z-index:20; pointer-events:auto;
+      background:rgba(0,0,0,.20); border:1px solid rgba(255,255,255,.10); border-radius:clamp(12px, 3.5vmin, 18px); padding:clamp(10px, 2.5vmin, 14px); backdrop-filter:blur(6px);
+    }
+    .ctl{
+      width:var(--ctl); height:var(--ctl); border-radius:clamp(10px, 2.5vmin, 12px);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.22);
+      color:var(--text); display:grid; place-items:center; font-weight:800; font-size:clamp(16px, 4.3vmin, 22px);
+      user-select:none; -webkit-tap-highlight-color:transparent;
+      box-shadow:0 6px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:transform .05s ease, box-shadow .1s ease, background .12s ease;
+    }
+    .ctl:active, .ctl.is-press{ transform:translateY(1px); box-shadow:0 3px 8px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); }
+
+    /* compact on small screens */
+    @media (max-width: 1024px){ :root{ --ctl:64px; --gap:10px } }
+    @media (max-width: 768px){ :root{ --ctl:58px; --gap:8px } }
+    @media (max-width: 480px){ :root{ --ctl:52px; --gap:8px } }
+    /* Landscape phones: dock D‑Pad to bottom-right so it doesn't block canvas */
+    @media (orientation: landscape) and (max-height: 480px){
+      #controls{ left:auto; right:14px; transform:none; grid-template-columns:repeat(3,calc(var(--ctl)*0.9)); grid-template-rows:repeat(2,calc(var(--ctl)*0.9)); }
+    }
+
+    /* layout arrows:   [  ^  ]
+                         [ < ] [ v ] [ > ] */
+    #btnUp{ grid-column:2; grid-row:1 }
+    #btnLeft{ grid-column:1; grid-row:2 }
+    #btnDown{ grid-column:2; grid-row:2 }
+    #btnRight{ grid-column:3; grid-row:2 }

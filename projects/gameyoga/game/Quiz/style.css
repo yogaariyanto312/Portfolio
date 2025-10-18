@@ -1,0 +1,135 @@
+/* Changes background colour */
+body {
+  background-color: #c1ebff;
+}
+
+/* Changes the rectangle around the answer making the edges round */
+.answer {
+  border-radius: 25px;
+  margin: auto;
+  width: 100%;
+  line-height: 200%;
+  text-align: center;
+  font-size: 25px;
+  background: #faffa8;
+}
+
+/* Changes the colour of rounded rectangle when mouse hovers over */
+.answer:hover {
+  background-color: #ffc0cb;
+}
+
+/* Displays image in the middle of the page */
+.medal {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#container {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Styles headers 1, 2 and 4 */
+h1 {
+  color: black;
+  text-align: center;
+  font-family: Arial;
+  font-size: 600%;
+}
+
+h4 {
+  color: black;
+  text-align: center;
+  font-family: Arial;
+  font-size: 200%;
+}
+
+h2 {
+  color: black;
+  text-align: center;
+  text-decoration: underline;
+}
+
+/* Changes all text within Paragraph tags */
+p {
+  color: black;
+  text-align: center;
+  font-size: 150%;
+  font-family: Arial;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: black;
+}
+
+/* Styles text of the questions */
+#text {
+  font-size: 70%;
+  font-family: Arial;
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* Hides quiz element at the start */
+#quiz {
+  display: none;
+}
+
+/* Styles the questions for the user input */
+#user {
+  text-align: center;
+}
+
+/*Changes background colour of the letter "Q" of the word Quiz  */
+#q1 {
+  background-color: #f6b2b2;
+}
+
+#result {
+  display: none;
+}
+
+/*Changes background colour of the letter "U" of the word Quiz  */
+#q2 {
+  background-color: #ffc78f;
+}
+
+/*Changes background colour of the letter "I" of the word Quiz  */
+#q3 {
+  background-color: #faffa8;
+}
+
+/*Changes background colour of the letter "Z" of the word Quiz  */
+#q4 {
+  background-color: #cbffbb;
+}
+
+/* Styles the start button */
+#start {
+  background-color: #ffc0cb;
+  padding: 15px 32px;
+  text-align: center;
+  border-radius: 25px;
+  margin: auto;
+  width: 25%;
+  line-height: 200%;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 150%;
+}
+
+/* Changes the font of the name and score */
+#name,
+#score {
+  font-size: 150%;
+}
+
+/* Styles the correct and incorrect */
+#message {
+  padding: 15px 32px;
+  text-align: center;
+  border-radius: 25px;
+  margin: auto;
+  width: 25%;
+}

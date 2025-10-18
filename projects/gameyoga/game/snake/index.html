@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Snake — Canvas Preview (Mobile + Neon)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="wrap">
+  <header>
+    <div class="row">
+      <div class="pill">Score: <strong id="score">0</strong></div>
+      <div class="pill">Best: <strong id="best">0</strong></div>
+    </div>
+    <div class="row">
+      <label>Speed
+        <select id="speed">
+          <option value="6">Chill</option>
+          <option value="8" selected>Normal</option>
+          <option value="11">Faster</option>
+          <option value="15">Crazy</option>
+        </select>
+      </label>
+      <label style="align-items:center; gap:6px"><input type="checkbox" id="padToggle" checked/> D‑Pad</label>
+      <button class="btn" id="pause">Pause</button>
+      <button class="btn primary" id="restart">Restart</button>
+    </div>
+  </header>
+
+  <div style="position:relative">
+    <canvas id="canvas"></canvas>
+    <div id="overlay" class="hidden">
+      <div class="card">
+        <h2 style="margin:0 0 8px">Game Over</h2>
+        <p style="opacity:.85; margin:0 0 12px">tap/space buat main lagi</p>
+        <div class="row" style="justify-content:center">
+          <button class="btn primary" id="playAgain">Play Again</button>
+        </div>
+      </div>
+    </div>
+    <!-- On-screen Mobile Controls -->
+    <div id="controls" aria-label="mobile controls" role="group" class="hidden">
+      <div class="ctl" id="btnUp">🔼</div>
+      <div class="ctl" id="btnLeft">◀</div>
+      <div class="ctl" id="btnDown">🔽</div>
+      <div class="ctl" id="btnRight">▶</div>
+    </div>
+    <div id="selftest"></div>
+  </div>
+
+  <footer>
+    <div class="row" style="opacity:.8">Controls: ⬅️⬆️➡️⬇️ / WASD • Space = Pause • Touch: D‑Pad</div>
+    <div class="row"><span style="opacity:.6">Snake by Yoga</span></div>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
