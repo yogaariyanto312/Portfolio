@@ -287,75 +287,70 @@ function showToast(message, type) {
    el.onclick = () => el.classList.remove("show");
 }
 
-// ===== Contact form: toast (no redirect) — progressive enhancement =====
+// ===== Contact form: toast (no redirect) — FormData (paling kompat) =====
 (function () {
-   const form = document.getElementById("contact-form");
-   const status = document.getElementById("form-status");
-   if (!form || !status) return;
-   const endpoint = (form.getAttribute("action") || "").trim();
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  if (!form || !status) return;
+  const endpoint = (form.getAttribute("action") || "").trim();
 
-   form.addEventListener("submit", async (e) => {
-      // Intercept to prevent redirect and show toast UX
-      e.preventDefault();
-      status.textContent = "";
-      form.classList.add("is-sending");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "";
+    form.classList.add("is-sending");
 
-      const fd = new FormData(form);
-      const name = String(fd.get("name") || "").trim();
-      const email = String(fd.get("email") || "").trim();
-      const message = String(fd.get("message") || "").trim();
-      const honey = String(fd.get("_gotcha") || "");
-      if (honey) {
-         form.classList.remove("is-sending");
-         return;
+    const fd = new FormData(form);
+    const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const message = String(fd.get("message") || "").trim();
+    const honey = String(fd.get("_gotcha") || "");
+
+    // Honeypot anti-bot
+    if (honey) { form.classList.remove("is-sending"); return; }
+
+    if (!name || !email || !message) {
+      status.textContent = "Isi nama, email & pesan dulu ya.";
+      status.className = "status-err";
+      form.classList.remove("is-sending");
+      showToast("Isi nama, email & pesan dulu ya.", "err");
+      return;
+    }
+
+    // Tambahan metadata (opsional, useful di email)
+    fd.append("page", location.href);
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        body: fd,                        // <— KIRIM FORMDATA (biarin browser set Content-Type)
+        headers: { Accept: "application/json" } // <— biar responnya JSON
+      });
+
+      if (res.ok) {
+        status.textContent = "Thanks! Your message was sent ✅";
+        status.className = "status-ok";
+        form.reset();
+        showToast("Pesan terkirim. Makasih! ✅", "ok");
+      } else {
+        // Coba baca error detail dari Formspree
+        const data = await res.json().catch(() => null);
+        const msg = data && data.errors
+          ? data.errors.map((e) => e.message).join(", ")
+          : "Gagal mengirim. Coba lagi nanti.";
+        status.textContent = msg;
+        status.className = "status-err";
+        showToast(msg, "err");
       }
-      if (!name || !email || !message) {
-         status.textContent = "Isi nama, email & pesan dulu ya.";
-         status.className = "status-err";
-         form.classList.remove("is-sending");
-         showToast("Isi nama, email & pesan dulu ya.", "err");
-         return;
-      }
-
-      const payload = {
-         name,
-         email,
-         message,
-         _subject: fd.get("_subject") || "[Portfolio] Pesan baru",
-         _format: "plain",
-         page: location.href
-      };
-
-      try {
-         const res = await fetch(endpoint, {
-            method: "POST",
-            headers: { Accept: "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-         });
-         if (res.ok) {
-            status.textContent = "Thanks! Your message was sent ✅";
-            status.className = "status-ok";
-            form.reset();
-            showToast("Pesan terkirim. Makasih! ✅", "ok");
-         } else {
-            const data = await res.json().catch(() => null);
-            const msg =
-               data && data.errors
-                  ? data.errors.map((e) => e.message).join(", ")
-                  : "Gagal mengirim. Coba lagi nanti.";
-            status.textContent = msg;
-            status.className = "status-err";
-            showToast(msg, "err");
-         }
-      } catch (err) {
-         status.textContent = "Jaringan error. Cek koneksi kamu ya.";
-         status.className = "status-err";
-         showToast("Jaringan error. Coba lagi nanti.", "err");
-      } finally {
-         form.classList.remove("is-sending");
-      }
-   });
+    } catch (err) {
+      status.textContent = "Jaringan error. Cek koneksi kamu ya.";
+      status.className = "status-err";
+      showToast("Jaringan error. Coba lagi nanti.", "err");
+    } finally {
+      form.classList.remove("is-sending");
+    }
+  });
 })();
+
 
 // ===== Lightweight self-tests (console) =====
 (function tests() {
@@ -368,42 +363,64 @@ function showToast(message, type) {
          results.push({ name, ok: false, e });
       }
    }
-   // Test 1: inline SVG URLs should be encoded (no raw '#')
-   t("SVG data URLs encoded", () => {
-      document.querySelectorAll(".card-media img, #avatar").forEach((img) => {
-         const src = img.getAttribute("src") || "";
-         if (src.startsWith("data:image/svg+xml")) {
-            if (src.includes("#")) throw new Error("Found raw # in data URL");
+   // ===== Lightweight self-tests (console) =====
+   (function tests() {
+      const results = [];
+      function t(name, fn) {
+         try {
+            fn();
+            results.push({ name, ok: true });
+         } catch (e) {
+            results.push({ name, ok: false, e });
          }
+      }
+      // Test 1: inline SVG URLs encoded (no raw '#')
+      t("SVG data URLs encoded", () => {
+         document.querySelectorAll(".card-media img, #avatar").forEach((img) => {
+            const src = img.getAttribute("src") || "";
+            if (src.startsWith("data:image/svg+xml")) {
+               if (src.includes("#")) throw new Error("Found raw # in data URL");
+            }
+         });
       });
-   });
-   // Test 2: skills bars primed to 0%
-   t("Skills bars primed", () => {
-      document.querySelectorAll("#skills .bar span").forEach((s) => {
-         if (s.style.width !== "0%") throw new Error("bar not reset");
+      // Test 2: skills bars primed to 0%
+      t("Skills bars primed", () => {
+         document.querySelectorAll("#skills .bar span").forEach((s) => {
+            if (s.style.width !== "0%") throw new Error("bar not reset");
+         });
       });
-   });
-   // Test 3: contact form has name/email/message fields
-   t("Contact form has name/email/message", () => {
-      const f = document.getElementById("contact-form");
-      if (!f) throw new Error("form missing");
-      ["name", "email", "message"].forEach((n) => {
-         if (!f.querySelector(`[name="${n}"]`)) throw new Error(`${n} field missing`);
+      // Test 3: contact form has name/email/message fields
+      t("Contact form has name/email/message", () => {
+         const f = document.getElementById("contact-form");
+         if (!f) throw new Error("form missing");
+         ["name", "email", "message"].forEach((n) => {
+            if (!f.querySelector(`[name="${n}"]`)) throw new Error(`${n} field missing`);
+         });
       });
-   });
-   // Test 4: navbar links exist & point to sections
-   t("Navbar links valid", () => {
-      document.querySelectorAll(".nav-links a").forEach((a) => {
-         const id = (a.getAttribute("href") || "").replace("#", "");
-         if (id && !document.getElementById(id))
-            throw new Error("missing section #" + id);
+      // Test 4: navbar links exist & point to sections
+      t("Navbar links valid", () => {
+         document.querySelectorAll(".nav-links a").forEach((a) => {
+            const id = (a.getAttribute("href") || "").replace("#", "");
+            if (id && !document.getElementById(id))
+               throw new Error("missing section #" + id);
+         });
       });
-   });
-   // Log summary (non-fatal)
-   const ok = results.filter((r) => r.ok).length;
-   const fail = results.length - ok;
-   console.log(
-      `[Portfolio tests] ${ok}/${results.length} passed${fail ? `, ${fail} failed` : ""}`,
-      results
-   );
+      // Test 5: theme switch reflects theme
+      t("Theme switch reflects theme", () => {
+         const root = document.documentElement;
+         const sw = document.getElementById("theme-switch");
+         if (!sw) throw new Error("switch missing");
+         const theme = root.getAttribute("data-theme");
+         if (theme === "light" && !sw.checked) throw new Error("light but unchecked");
+         if (theme !== "light" && sw.checked) throw new Error("dark but checked");
+      });
+      const ok = results.filter((r) => r.ok).length;
+      const fail = results.length - ok;
+      console.log(
+         `[Portfolio tests] ${ok}/${results.length} passed${
+            fail ? `, ${fail} failed` : ""
+         }`,
+         results
+      );
+   })();
 })();
