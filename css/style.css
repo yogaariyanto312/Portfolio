@@ -113,9 +113,8 @@ body,
 input,
 textarea,
 .nav-links {
-   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+   transition: opacity 1.65s ease, transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
-
 /* Container */
 .container {
    width: min(1120px, 92%);
@@ -135,6 +134,8 @@ textarea,
    );
    backdrop-filter: blur(10px);
    border-bottom: 1px solid var(--border);
+   
+   
 }
 .nav-inner {
    display: flex;
@@ -165,7 +166,7 @@ textarea,
    font-size: 0.95rem;
    position: relative;
    padding-bottom: 6px;
-   transition: color 0.25s ease, transform 0.2s ease;
+   transition: color 0.25s ease, transform 20.25s ease;
 }
 .nav-links a:hover {
    color: var(--text);
@@ -255,16 +256,16 @@ textarea,
 }
 .theme-switch .track {
    --w: 64px;
-   --h: 32px;
-   width: var(--w);
-   height: var(--h);
-   background: var(--glass);
-   border: 1px solid var(--border);
-   border-radius: 999px;
-   display: block;
-   position: relative;
-   box-shadow: var(--shadow);
-   transition: background 0.25s ease, border-color 0.25s ease;
+  --h: 32px;
+  width: var(--w);
+  height: var(--h);
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  position: relative;
+  box-shadow: var(--shadow);
+  transition: background .25s ease, border-color .25s ease;
+  display: block;
 }
 .theme-switch .thumb {
    position: absolute;
@@ -290,6 +291,7 @@ textarea,
    display: flex;
    align-items: center;
    justify-content: center;
+   text-align: center;
    line-height: 1;
    font-size: 14px;
    opacity: 0.9;
@@ -299,9 +301,21 @@ textarea,
 }
 .theme-switch .icon.sun {
    left: 3px;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+}
+.icon-moon {
+   text-align: center;
+   align-items: center;
+   justify-content: center;
 }
 .theme-switch .icon.moon {
-   right: 3px;
+   padding-top: 1px;
+   right: 0.65px;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
 }
 .theme-switch input:checked + .track .thumb {
    transform: translateX(32px);
@@ -370,11 +384,35 @@ textarea,
    gap: 8px;
    box-shadow: var(--shadow);
 }
+/* base state tombol utama (Send, Lihat Project, dll) */
 .btn.primary {
-   background: linear-gradient(135deg, var(--primary), var(--accent));
-   color: #0a0e13;
-   border: 1px solid transparent;
+  /* background: linear-gradient(135deg, var(--primary), var(--accent)); */
+   background: rgba(255, 255, 255, 0.02);
+  /* color: #ffffff; */
+  /* border: 1px solid #; */
+  /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.233); */
+  transition: 
+    transform .28s ease,filter .28s ease,background .28s ease;cursor: pointer;
 }
+
+/* hover / fokus visual */
+.btn.primary:hover,
+.btn.primary:focus-visible {
+  transform: translateY(-2px) scale(1.03);                /* naik dikit */
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.342),
+              0 0 20px color-mix(in srgb, var(--accent) 10%, transparent); /* glow halus */
+  filter: brightness(1.25);                               /* gradient keliatan lebih "nyala" */
+  outline: none;
+  transition: 2s ease all 0s transform, 2s ease all 1s box-shadow, 2s ease all s filter;
+}
+
+/* active (pas ditekan) biar kerasa "klik") */
+.btn.primary:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 8px 16px rgba(0,0,0,.6);
+  filter: brightness(0.95);
+}
+
 .btn.ghost {
    background: rgba(255, 255, 255, 0.02);
 }
@@ -407,24 +445,24 @@ textarea,
    inset: -20%;
    background: radial-gradient(
       60% 60% at 50% 50%,
-      color-mix(in srgb, var(--primary) 35%, transparent),
+      color-mix(in srgb, var(--primary) 25%, transparent),
       transparent
    );
-   filter: blur(40px);
+   filter: blur(50px);
    z-index: -1;
 }
 /* Avatar glow + hover animation */
 /* .hero-art .ring { position:absolute; inset:-12px; border-radius:32px; background: conic-gradient(from 0deg, color-mix(in srgb, var(--primary) 70%, transparent) 0%, color-mix(in srgb, var(--accent) 70%, transparent) 35%, transparent 60%, color-mix(in srgb, var(--primary) 70%, transparent) 100%); filter: blur(22px); opacity:.28; z-index:-1; animation: ring-glow 6s ease-in-out infinite alternate; }
     .hero-art img:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 18px 40px rgba(0,0,0,.55); } */
 .hero-art img {
-   width: 280px;
-   height: 280px;
+   width: 300px;
+   height: 300px;
    object-fit: cover;
    border-radius: 28px;
    border: 1px solid var(--border);
    box-shadow: var(--shadow);
    background: linear-gradient(180deg, var(--bg-soft), var(--bg));
-   transition: transform 0.35s ease, box-shadow 0.35s ease;
+   transition: transform 0.75s ease, box-shadow 0.65s ease;
 }
 @keyframes ring-glow {
    from {
@@ -637,6 +675,14 @@ textarea,
    grid-template-columns: 0.9fr 1.1fr;
    gap: 18px;
 }
+
+.contact-form textarea {
+  min-height: 175px;      /* tinggi awal */
+  max-height: 175px;      /* kunci tinggi biar ga nambah lagi */
+  overflow-y: auto;       /* scroll vertikal kalo text kepanjangan */
+  resize: none;           /* user gak bisa drag gedein manual */
+}
+
 .contact-list {
    list-style: none;
    padding: 0;
@@ -739,21 +785,30 @@ textarea::placeholder {
    .nav-links {
       display: none;
       position: absolute;
-      right: 4%;
-      top: 58px;
+      right: 4.201%;
+      top: 78px;
       background: var(--bg-soft);
+      /* backdrop-filter: blur(200px); */
       border: 1px solid var(--border);
       border-radius: 14px;
+      box-shadow: var(--shadow);
       padding: 10px;
       flex-direction: column;
-      width: 200px;
+      width: 180px;
+      gap: 8px;
+      
    }
    .nav-links a {
       padding: 8px 10px;
    }
    .nav-toggle {
       display: block;
+      
    }
+   .nav-open .nav-links {
+      display: flex;
+   }
+
    .about-grid,
    .skills-grid,
    .projects-grid,

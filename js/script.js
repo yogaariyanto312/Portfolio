@@ -21,6 +21,8 @@ if (window.AOS) {
    })();
 }
 
+
+
 // ===== Navbar toggle (mobile, robust + desktop-safe) =====
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks  = document.querySelector(".nav-links");
