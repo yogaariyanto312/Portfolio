@@ -1,8 +1,149 @@
+// ===== Background Animation (Network Particles) =====
+(function () {
+   const canvas = document.getElementById("bg-canvas");
+   const ctx = canvas.getContext("2d");
+   let particlesArray;
+
+   // Set canvas dimensions
+   canvas.width = window.innerWidth;
+   canvas.height = window.innerHeight;
+
+   // Particle Class
+   class Particle {
+      constructor(x, y, directionX, directionY, size, color) {
+         this.x = x;
+         this.y = y;
+         this.directionX = directionX;
+         this.directionY = directionY;
+         this.size = size;
+         this.color = color;
+      }
+
+      // Draw individual particle
+      draw() {
+         ctx.beginPath();
+         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+         ctx.fillStyle = this.color;
+         ctx.fill();
+      }
+
+      // Update particle position
+      update() {
+         // Check if particle hits canvas boundaries
+         if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+         }
+         if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+         }
+
+         // Move particle
+         this.x += this.directionX;
+         this.y += this.directionY;
+
+         // Draw particle
+         this.draw();
+      }
+   }
+
+   // Check theme color
+   function getParticleColor() {
+      const theme = document.documentElement.getAttribute("data-theme");
+      // Dark Mode: Putih pudar, Light Mode: Abu-abu pudar
+      return theme === "light" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.4)";
+   }
+
+   function getLineColor() {
+      const theme = document.documentElement.getAttribute("data-theme");
+      return theme === "light" ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.05)";
+   }
+
+   // Create particle array
+   function init() {
+      particlesArray = [];
+      // Jumlah partikel menyesuaikan lebar layar
+      let numberOfParticles = (canvas.width * canvas.height) / 9000;
+
+      for (let i = 0; i < numberOfParticles; i++) {
+         let size = Math.random() * 2 + 1;
+         let x = Math.random() * (innerWidth - size * 2 - size * 2) + size * 2;
+         let y = Math.random() * (innerHeight - size * 2 - size * 2) + size * 2;
+         let directionX = Math.random() * 0.4 - 0.2; // Kecepatan lambat
+         let directionY = Math.random() * 0.4 - 0.2;
+         let color = getParticleColor();
+
+         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+      }
+   }
+
+   // Connect particles with lines
+   function connect() {
+      let opacityValue = 1;
+      for (let a = 0; a < particlesArray.length; a++) {
+         for (let b = a; b < particlesArray.length; b++) {
+            let distance =
+               (particlesArray[a].x - particlesArray[b].x) *
+                  (particlesArray[a].x - particlesArray[b].x) +
+               (particlesArray[a].y - particlesArray[b].y) *
+                  (particlesArray[a].y - particlesArray[b].y);
+
+            // Jika jarak cukup dekat, gambar garis
+            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+               opacityValue = 1 - distance / 20000;
+               const baseColor = getLineColor().slice(0, -6); // Ambil rgba prefix tanpa opacity
+               ctx.strokeStyle = baseColor + opacityValue + ")";
+               ctx.lineWidth = 1;
+               ctx.beginPath();
+               ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+               ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+               ctx.stroke();
+            }
+         }
+      }
+   }
+
+   // Animation Loop
+   function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+      for (let i = 0; i < particlesArray.length; i++) {
+         particlesArray[i].update();
+      }
+      connect();
+   }
+
+   // Handle Resize
+   window.addEventListener("resize", function () {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      init();
+   });
+
+   // Listen for theme changes to update particle colors
+   // Kita pakai MutationObserver untuk memantau perubahan atribut pada <html>
+   const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+         if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+            const newColor = getParticleColor();
+            particlesArray.forEach((p) => (p.color = newColor));
+         }
+      });
+   });
+
+   observer.observe(document.documentElement, {
+      attributes: true //configure it to listen to attribute changes
+   });
+
+   init();
+   animate();
+})();
+
 // ===== AOS Init (guarded) =====
 if (window.AOS) {
    AOS.init({ once: false, duration: 700, easing: "ease-out-cubic" });
 
-   // Re-trigger AOS when sections are re-entered: remove 'aos-animate' when out of view
+   // Re-trigger AOS when sections are re-entered
    (function () {
       const els = document.querySelectorAll("[data-aos]");
       if (!els.length) return;
@@ -11,7 +152,7 @@ if (window.AOS) {
             entries.forEach((entry) => {
                const el = entry.target;
                if (!entry.isIntersecting) {
-                  el.classList.remove("aos-animate"); // so it can animate again next time
+                  el.classList.remove("aos-animate");
                }
             });
          },
@@ -21,56 +162,47 @@ if (window.AOS) {
    })();
 }
 
-// alert Injil
-function Injil() { // Fungsi Injil
-   alert("Karena masa depan sungguh ada, dan harapanmu tidak akan hilang."); // Tampilkan alert
-}
-
-
 // ===== Navbar toggle (mobile, robust + desktop-safe) =====
 const navToggle = document.querySelector(".nav-toggle");
-const navLinks  = document.querySelector(".nav-links");
-const MOBILE_Q  = window.matchMedia("(max-width: 640px)");
+const navLinks = document.querySelector(".nav-links");
+const MOBILE_Q = window.matchMedia("(max-width: 640px)");
 
 function isMobile() {
-  // mobile kalau breakpoint match ATAU burger kelihatan
-  return MOBILE_Q.matches || (navToggle && getComputedStyle(navToggle).display !== "none");
+   return (
+      MOBILE_Q.matches || (navToggle && getComputedStyle(navToggle).display !== "none")
+   );
 }
 
 function openMenu() {
-  navLinks.style.display = "flex";
+   navLinks.style.display = "flex";
 }
 function closeMenu() {
-  navLinks.style.display = "none";
+   navLinks.style.display = "none";
 }
 function resetMenuForDesktop() {
-  // biar CSS yang ngatur (desktop default flex)
-  navLinks.style.display = "";
+   navLinks.style.display = "";
 }
 
 if (navToggle && navLinks) {
-  // Toggle by burger
-  navToggle.addEventListener("click", () => {
-    const open = navLinks.style.display === "flex";
-    if (open) closeMenu(); else openMenu();
-  });
+   navToggle.addEventListener("click", () => {
+      const open = navLinks.style.display === "flex";
+      if (open) closeMenu();
+      else openMenu();
+   });
 
-  // Klik link: auto-hide hanya di mobile
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.matches("a") && isMobile()) closeMenu();
-  });
+   navLinks.addEventListener("click", (e) => {
+      if (e.target.matches("a") && isMobile()) closeMenu();
+   });
 
-  // Saat viewport berubah: kalau bukan mobile, bersihin inline style
-  function handleViewportChange() {
-    if (!isMobile()) resetMenuForDesktop();
-  }
-  window.addEventListener("resize", handleViewportChange);
-  MOBILE_Q.addEventListener?.("change", handleViewportChange);
+   function handleViewportChange() {
+      if (!isMobile()) resetMenuForDesktop();
+   }
+   window.addEventListener("resize", handleViewportChange);
+   if (MOBILE_Q.addEventListener)
+      MOBILE_Q.addEventListener("change", handleViewportChange);
 
-  // Safety: sync awal sesuai viewport
-  handleViewportChange();
+   handleViewportChange();
 }
-
 
 // ===== Auto year =====
 const yearEl = document.getElementById("year");
@@ -115,10 +247,10 @@ setInterval(() => {
    if (caretEl) caretEl.style.opacity = caretEl.style.opacity === "0" ? "1" : "0";
 }, 600);
 
-// ===== Project hover: same style as avatar (subtle tilt on image only) =====
+// ===== Project hover: tilt effect =====
 (function () {
    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-   if (prefersReduced) return; // keep it calm
+   if (prefersReduced) return;
    document.querySelectorAll(".project-card").forEach((card) => {
       const img = card.querySelector(".card-media img");
       if (!img) return;
@@ -126,8 +258,8 @@ setInterval(() => {
          const rect = card.getBoundingClientRect();
          const x = e.clientX - rect.left - rect.width / 2;
          const y = e.clientY - rect.top - rect.height / 2;
-         const rY = (x / (rect.width / 2)) * 6; // left/right
-         const rX = -(y / (rect.height / 2)) * 6; // up/down
+         const rY = (x / (rect.width / 2)) * 6;
+         const rX = -(y / (rect.height / 2)) * 6;
          img.style.transform = `rotateY(${rY}deg) rotateX(${rX}deg) translateZ(0) scale(1.02)`;
       }
       function reset() {
@@ -138,17 +270,52 @@ setInterval(() => {
    });
 })();
 
-// ===== Filter by category =====
+// ===== Filter by category (Smooth Transition + Stagger) =====
 const filterBtns = document.querySelectorAll(".filter-btn");
 const projectCards = document.querySelectorAll(".project-card");
+
 filterBtns.forEach((btn) => {
    btn.addEventListener("click", () => {
+      // 1. Update tombol aktif
       filterBtns.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
-      const f = btn.getAttribute("data-filter");
+
+      const filterValue = btn.getAttribute("data-filter");
+
+      // Variabel untuk delay berurutan (stagger)
+      let showDelay = 0;
+
       projectCards.forEach((card) => {
-         const cat = card.getAttribute("data-category");
-         card.style.display = f === "all" || f === cat ? "block" : "none";
+         const category = card.getAttribute("data-category");
+
+         // Cek apakah kartu harus ditampilkan atau disembunyikan
+         const shouldShow = filterValue === "all" || filterValue === category;
+
+         if (shouldShow) {
+            // Jika harus tampil tapi sedang tersembunyi (display:none atau class hiding)
+            if (card.style.display === "none" || card.classList.contains("hiding")) {
+               card.style.display = "block";
+               void card.offsetWidth; // Force reflow agar animasi jalan
+
+               // Hapus class hiding dengan delay berurutan agar muncul "satu per satu"
+               setTimeout(() => {
+                  card.classList.remove("hiding");
+               }, showDelay * 50); // Tambah 50ms untuk setiap item berikutnya
+               showDelay++;
+            } else {
+               card.classList.remove("hiding");
+            }
+         } else {
+            // Jika harus sembunyi
+            card.classList.add("hiding");
+
+            // Tunggu animasi selesai baru set display:none
+            setTimeout(() => {
+               if (card.classList.contains("hiding")) {
+                  card.style.display = "none";
+               }
+            }, 600); // Sesuaikan dengan durasi CSS (0.6s)
+         }
       });
    });
 });
@@ -185,7 +352,7 @@ if (themeSwitch) {
 
 mediaQuery.addEventListener("change", (e) => {
    const saved = localStorage.getItem(STORAGE_KEY);
-   if (saved) return; // respect manual choice
+   if (saved) return;
    applyTheme(e.matches ? "light" : "dark");
 });
 
@@ -229,7 +396,7 @@ const skillObserver = new IntersectionObserver(
 );
 document.querySelectorAll("[data-skill-group]").forEach((g) => skillObserver.observe(g));
 
-// ===== Avatar: subtle tilt/parallax (disabled if reduced motion)
+// ===== Avatar: subtle tilt/parallax =====
 (function () {
    const img = document.querySelector("[data-avatar-tilt]");
    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -251,7 +418,7 @@ document.querySelectorAll("[data-skill-group]").forEach((g) => skillObserver.obs
    wrapper.addEventListener("mouseleave", reset);
 })();
 
-// ===== Restart CSS animations when element re-enters viewport
+// ===== Restart CSS animations =====
 (function () {
    const restartables = document.querySelectorAll("[data-anim-restart]");
    if (!restartables.length) return;
@@ -272,16 +439,7 @@ document.querySelectorAll("[data-skill-group]").forEach((g) => skillObserver.obs
    restartables.forEach((el) => io.observe(el));
 })();
 
-// ===== Accessibility: disable tilt for keyboard navigation =====
-document.addEventListener("keydown", (e) => {
-   if (e.key === "Tab") {
-      document.querySelectorAll(".project-card .card-media img").forEach((img) => {
-         img.style.transform = "translateZ(0) scale(1)";
-      });
-   }
-});
-
-// ===== Toast utility (centered, auto-dismiss) =====
+// ===== Toast utility =====
 function showToast(message, type) {
    const el = document.getElementById("toast");
    if (!el) return;
@@ -293,140 +451,72 @@ function showToast(message, type) {
    el.onclick = () => el.classList.remove("show");
 }
 
-// ===== Contact form: toast (no redirect) — FormData (paling kompat) =====
+// ===== Injil Function (Replacement for Alert) =====
+function Injil() {
+   showToast("Karena masa depan sungguh ada, dan harapanmu tidak akan hilang.", "ok");
+}
+
+// ===== Contact form: toast (no redirect) =====
 (function () {
-  const form = document.getElementById("contact-form");
-  const status = document.getElementById("form-status");
-  if (!form || !status) return;
-  const endpoint = (form.getAttribute("action") || "").trim();
+   const form = document.getElementById("contact-form");
+   const status = document.getElementById("form-status");
+   if (!form || !status) return;
+   const endpoint = (form.getAttribute("action") || "").trim();
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    status.textContent = "";
-    form.classList.add("is-sending");
+   form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.textContent = "";
+      form.classList.add("is-sending");
 
-    const fd = new FormData(form);
-    const name = String(fd.get("name") || "").trim();
-    const email = String(fd.get("email") || "").trim();
-    const message = String(fd.get("message") || "").trim();
-    const honey = String(fd.get("_gotcha") || "");
+      const fd = new FormData(form);
+      const name = String(fd.get("name") || "").trim();
+      const email = String(fd.get("email") || "").trim();
+      const message = String(fd.get("message") || "").trim();
+      const honey = String(fd.get("_gotcha") || "");
 
-    // Honeypot anti-bot
-    if (honey) { form.classList.remove("is-sending"); return; }
-
-    if (!name || !email || !message) {
-      status.textContent = "Isi nama, email & pesan dulu ya.";
-      status.className = "status-err";
-      form.classList.remove("is-sending");
-      showToast("Isi nama, email & pesan dulu ya.", "err");
-      return;
-    }
-
-    // Tambahan metadata (opsional, useful di email)
-    fd.append("page", location.href);
-
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        body: fd,                        // <— KIRIM FORMDATA (biarin browser set Content-Type)
-        headers: { Accept: "application/json" } // <— biar responnya JSON
-      });
-
-      if (res.ok) {
-        status.textContent = "Thanks! Your message was sent ✅";
-        status.className = "status-ok";
-        form.reset();
-        showToast("Pesan terkirim. Makasih! ✅", "ok");
-      } else {
-        // Coba baca error detail dari Formspree
-        const data = await res.json().catch(() => null);
-        const msg = data && data.errors
-          ? data.errors.map((e) => e.message).join(", ")
-          : "Gagal mengirim. Coba lagi nanti.";
-        status.textContent = msg;
-        status.className = "status-err";
-        showToast(msg, "err");
+      if (honey) {
+         form.classList.remove("is-sending");
+         return;
       }
-    } catch (err) {
-      status.textContent = "Jaringan error. Cek koneksi kamu ya.";
-      status.className = "status-err";
-      showToast("Jaringan error. Coba lagi nanti.", "err");
-    } finally {
-      form.classList.remove("is-sending");
-    }
-  });
-})();
 
+      if (!name || !email || !message) {
+         status.textContent = "Isi nama, email & pesan dulu ya.";
+         status.className = "status-err";
+         form.classList.remove("is-sending");
+         showToast("Isi nama, email & pesan dulu ya.", "err");
+         return;
+      }
 
-// ===== Lightweight self-tests (console) =====
-(function tests() {
-   const results = [];
-   function t(name, fn) {
+      fd.append("page", location.href);
+
       try {
-         fn();
-         results.push({ name, ok: true });
-      } catch (e) {
-         results.push({ name, ok: false, e });
-      }
-   }
-   // ===== Lightweight self-tests (console) =====
-   (function tests() {
-      const results = [];
-      function t(name, fn) {
-         try {
-            fn();
-            results.push({ name, ok: true });
-         } catch (e) {
-            results.push({ name, ok: false, e });
+         const res = await fetch(endpoint, {
+            method: "POST",
+            body: fd,
+            headers: { Accept: "application/json" }
+         });
+
+         if (res.ok) {
+            status.textContent = "Thanks! Your message was sent ✅";
+            status.className = "status-ok";
+            form.reset();
+            showToast("Pesan terkirim. Makasih! ✅", "ok");
+         } else {
+            const data = await res.json().catch(() => null);
+            const msg =
+               data && data.errors
+                  ? data.errors.map((e) => e.message).join(", ")
+                  : "Gagal mengirim. Coba lagi nanti.";
+            status.textContent = msg;
+            status.className = "status-err";
+            showToast(msg, "err");
          }
+      } catch (err) {
+         status.textContent = "Jaringan error. Cek koneksi kamu ya.";
+         status.className = "status-err";
+         showToast("Jaringan error. Coba lagi nanti.", "err");
+      } finally {
+         form.classList.remove("is-sending");
       }
-      // Test 1: inline SVG URLs encoded (no raw '#')
-      t("SVG data URLs encoded", () => {
-         document.querySelectorAll(".card-media img, #avatar").forEach((img) => {
-            const src = img.getAttribute("src") || "";
-            if (src.startsWith("data:image/svg+xml")) {
-               if (src.includes("#")) throw new Error("Found raw # in data URL");
-            }
-         });
-      });
-      // Test 2: skills bars primed to 0%
-      t("Skills bars primed", () => {
-         document.querySelectorAll("#skills .bar span").forEach((s) => {
-            if (s.style.width !== "0%") throw new Error("bar not reset");
-         });
-      });
-      // Test 3: contact form has name/email/message fields
-      t("Contact form has name/email/message", () => {
-         const f = document.getElementById("contact-form");
-         if (!f) throw new Error("form missing");
-         ["name", "email", "message"].forEach((n) => {
-            if (!f.querySelector(`[name="${n}"]`)) throw new Error(`${n} field missing`);
-         });
-      });
-      // Test 4: navbar links exist & point to sections
-      t("Navbar links valid", () => {
-         document.querySelectorAll(".nav-links a").forEach((a) => {
-            const id = (a.getAttribute("href") || "").replace("#", "");
-            if (id && !document.getElementById(id))
-               throw new Error("missing section #" + id);
-         });
-      });
-      // Test 5: theme switch reflects theme
-      t("Theme switch reflects theme", () => {
-         const root = document.documentElement;
-         const sw = document.getElementById("theme-switch");
-         if (!sw) throw new Error("switch missing");
-         const theme = root.getAttribute("data-theme");
-         if (theme === "light" && !sw.checked) throw new Error("light but unchecked");
-         if (theme !== "light" && sw.checked) throw new Error("dark but checked");
-      });
-      const ok = results.filter((r) => r.ok).length;
-      const fail = results.length - ok;
-      console.log(
-         `[Portfolio tests] ${ok}/${results.length} passed${
-            fail ? `, ${fail} failed` : ""
-         }`,
-         results
-      );
-   })();
+   });
 })();
