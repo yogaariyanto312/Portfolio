@@ -21,6 +21,10 @@ if (window.AOS) {
    })();
 }
 
+// alert Injil
+function Injil() { // Fungsi Injil
+   alert("Karena masa depan sungguh ada, dan harapanmu tidak akan hilang."); // Tampilkan alert
+}
 
 
 // ===== Navbar toggle (mobile, robust + desktop-safe) =====
