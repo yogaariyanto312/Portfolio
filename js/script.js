@@ -46,6 +46,23 @@
       }
    }
 
+    /* Mencegah Inspect Element */
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      showToast("Klik kanan dinonaktifkan!");
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || 
+        (e.ctrlKey && e.key === 'U')
+      ) {
+        e.preventDefault();
+        showToast("Inspect Element dinonaktifkan!");
+      }
+    });
+
    // Check theme color
    function getParticleColor() {
       const theme = document.documentElement.getAttribute("data-theme");
