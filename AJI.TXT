@@ -1,0 +1,1 @@
+^.+(ytstatic.I.google.com | youtube-ui.I.google.com | youtube.googleapis.com | youtube.com | www.youtube.com | m.youtube.com | ytimg.com | s.ytimg.com | ytimg.I.google.com | youtube.I.google.com | i.google.com | google.com | googlevideo.com | youtu.be | youtube-nocookie.com ).*$
