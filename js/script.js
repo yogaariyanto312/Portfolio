@@ -179,6 +179,13 @@ if (window.AOS) {
    })();
 }
 
+// ===== Home nav link — scroll to top, clean URL =====
+document.querySelector('a[href="#home"]')?.addEventListener("click", (e) => {
+   e.preventDefault();
+   window.scrollTo({ top: 0, behavior: "smooth" });
+   history.replaceState(null, "", location.pathname);
+});
+
 // ===== Navbar toggle (mobile, robust + desktop-safe) =====
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
@@ -245,24 +252,22 @@ function typeLoop() {
       typingEl.textContent = current.slice(0, ++charIdx);
       if (charIdx === current.length) {
          deleting = true;
+         if (caretEl) caretEl.classList.remove("is-typing"); // blink saat pause
          setTimeout(typeLoop, 1800);
          return;
       }
+      if (caretEl) caretEl.classList.add("is-typing"); // solid saat ngetik
    } else {
+      if (caretEl) caretEl.classList.add("is-typing"); // solid saat hapus
       typingEl.textContent = current.slice(0, --charIdx);
       if (charIdx === 0) {
          deleting = false;
          roleIdx = (roleIdx + 1) % roles.length;
       }
    }
-   setTimeout(typeLoop, deleting ? 45 : 85);
+   setTimeout(typeLoop, deleting ? 45 : 75);
 }
 if (typingEl) typeLoop();
-
-// blink caret
-setInterval(() => {
-   if (caretEl) caretEl.style.opacity = caretEl.style.opacity === "0" ? "1" : "0";
-}, 600);
 
 // ===== Project hover: tilt effect =====
 (function () {
@@ -287,51 +292,40 @@ setInterval(() => {
    });
 })();
 
-// ===== Filter by category (Smooth Transition + Stagger) =====
+// ===== Filter by category =====
 const filterBtns = document.querySelectorAll(".filter-btn");
 const projectCards = document.querySelectorAll(".project-card");
 
 filterBtns.forEach((btn) => {
    btn.addEventListener("click", () => {
-      // 1. Update tombol aktif
       filterBtns.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
       const filterValue = btn.getAttribute("data-filter");
-
-      // Variabel untuk delay berurutan (stagger)
-      let showDelay = 0;
+      let showIdx = 0;
 
       projectCards.forEach((card) => {
-         const category = card.getAttribute("data-category");
+         const shouldShow = filterValue === "all" || filterValue === card.dataset.category;
+         const isHidden = card.style.display === "none" || card.classList.contains("hiding");
 
-         // Cek apakah kartu harus ditampilkan atau disembunyikan
-         const shouldShow = filterValue === "all" || filterValue === category;
-
-         if (shouldShow) {
-            // Jika harus tampil tapi sedang tersembunyi (display:none atau class hiding)
-            if (card.style.display === "none" || card.classList.contains("hiding")) {
-               card.style.display = "block";
-               void card.offsetWidth; // Force reflow agar animasi jalan
-
-               // Hapus class hiding dengan delay berurutan agar muncul "satu per satu"
-               setTimeout(() => {
-                  card.classList.remove("hiding");
-               }, showDelay * 50); // Tambah 50ms untuk setiap item berikutnya
-               showDelay++;
-            } else {
-               card.classList.remove("hiding");
-            }
-         } else {
-            // Jika harus sembunyi
+         if (!shouldShow) {
+            // Animate keluar, lalu hapus dari flow
             card.classList.add("hiding");
-
-            // Tunggu animasi selesai baru set display:none
             setTimeout(() => {
-               if (card.classList.contains("hiding")) {
-                  card.style.display = "none";
-               }
-            }, 600); // Sesuaikan dengan durasi CSS (0.6s)
+               if (card.classList.contains("hiding")) card.style.display = "none";
+            }, 400);
+         } else if (isHidden) {
+            // Hanya kartu yang benar-benar tersembunyi yang animate masuk dengan stagger
+            card.style.transition = "none";
+            card.classList.add("hiding");
+            card.style.display = "";
+            void card.offsetWidth;
+            card.style.transition = "";
+            setTimeout(() => card.classList.remove("hiding"), showIdx * 80);
+            showIdx++;
+         } else {
+            // Kartu sudah visible — tidak perlu re-animate, cukup pastikan state bersih
+            card.classList.remove("hiding");
          }
       });
    });
@@ -342,12 +336,13 @@ const STORAGE_KEY = "theme";
 const root = document.documentElement;
 const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
 const themeSwitch = document.getElementById("theme-switch");
+const themeSwitchMobile = document.getElementById("theme-switch-mobile");
 
 function applyTheme(t) {
    root.setAttribute("data-theme", t);
-   if (themeSwitch) {
-      themeSwitch.checked = t === "light";
-   }
+   const isLight = t === "light";
+   if (themeSwitch) themeSwitch.checked = isLight;
+   if (themeSwitchMobile) themeSwitchMobile.checked = isLight;
 }
 
 function initTheme() {
@@ -362,6 +357,14 @@ function initTheme() {
 if (themeSwitch) {
    themeSwitch.addEventListener("change", () => {
       const next = themeSwitch.checked ? "light" : "dark";
+      applyTheme(next);
+      localStorage.setItem(STORAGE_KEY, next);
+   });
+}
+
+if (themeSwitchMobile) {
+   themeSwitchMobile.addEventListener("change", () => {
+      const next = themeSwitchMobile.checked ? "light" : "dark";
       applyTheme(next);
       localStorage.setItem(STORAGE_KEY, next);
    });
@@ -413,6 +416,45 @@ const skillObserver = new IntersectionObserver(
 );
 document.querySelectorAll("[data-skill-group]").forEach((g) => skillObserver.observe(g));
 
+// ===== Stats counter animation =====
+(function () {
+   const statEls = document.querySelectorAll("[data-count]");
+   if (!statEls.length) return;
+
+   function animateCounter(el) {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || "";
+      const duration = 1600;
+      const start = performance.now();
+
+      el._rafId && cancelAnimationFrame(el._rafId);
+
+      function step(now) {
+         const elapsed = now - start;
+         const progress = Math.min(elapsed / duration, 1);
+         const eased = 1 - Math.pow(1 - progress, 3);
+         el.textContent = Math.round(eased * target) + suffix;
+         if (progress < 1) el._rafId = requestAnimationFrame(step);
+      }
+      el._rafId = requestAnimationFrame(step);
+   }
+
+   const counterObserver = new IntersectionObserver(
+      (entries) => {
+         entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+               animateCounter(entry.target);
+            } else {
+               entry.target._rafId && cancelAnimationFrame(entry.target._rafId);
+               entry.target.textContent = "0" + (entry.target.dataset.suffix || "");
+            }
+         });
+      },
+      { threshold: 0.6 }
+   );
+   statEls.forEach((el) => counterObserver.observe(el));
+})();
+
 // ===== Avatar: subtle tilt/parallax =====
 (function () {
    const img = document.querySelector("[data-avatar-tilt]");
@@ -434,6 +476,12 @@ document.querySelectorAll("[data-skill-group]").forEach((g) => skillObserver.obs
    wrapper.addEventListener("mousemove", onMove);
    wrapper.addEventListener("mouseleave", reset);
 })();
+
+// ===== Card media: blurred background from thumbnail =====
+document.querySelectorAll(".card-media").forEach((el) => {
+   const img = el.querySelector("img");
+   if (img) el.style.setProperty("--bg-img", `url('${img.getAttribute("src")}')`);
+});
 
 // ===== Restart CSS animations =====
 (function () {
