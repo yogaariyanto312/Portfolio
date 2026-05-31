@@ -561,8 +561,6 @@ textarea,
    border: none;
    border-radius: 99em;
    background-color: color-mix(in srgb, white 8%, transparent);
-   backdrop-filter: blur(10px) saturate(150%);
-   -webkit-backdrop-filter: blur(10px) saturate(150%);
    color: var(--text);
    box-shadow:
       inset 0 0 0 1px
@@ -985,8 +983,6 @@ textarea,
    border-radius: 99em;
    background-color: color-mix(in srgb, var(--primary) 18%, transparent);
    color: var(--primary);
-   backdrop-filter: blur(10px) saturate(150%);
-   -webkit-backdrop-filter: blur(10px) saturate(150%);
    cursor: pointer;
    box-shadow:
       inset 0 0 0 1px
@@ -1044,8 +1040,6 @@ textarea,
    cursor: default;
    border: none;
    background-color: color-mix(in srgb, white 8%, transparent);
-   backdrop-filter: blur(10px) saturate(150%);
-   -webkit-backdrop-filter: blur(10px) saturate(150%);
    box-shadow:
       inset 0 0 0 1px
          color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
@@ -1529,8 +1523,6 @@ textarea,
    top: 12px;
    right: 12px;
    background-color: color-mix(in srgb, white 12%, transparent);
-   backdrop-filter: blur(8px) saturate(150%);
-   -webkit-backdrop-filter: blur(8px) saturate(150%);
    color: #fff;
    font-size: 0.75rem;
    font-weight: 600;
@@ -1584,8 +1576,6 @@ textarea,
    color: var(--text);
    border: none;
    background-color: color-mix(in srgb, white 8%, transparent);
-   backdrop-filter: blur(10px) saturate(150%);
-   -webkit-backdrop-filter: blur(10px) saturate(150%);
    box-shadow:
       inset 0 0 0 1px
          color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
@@ -1775,21 +1765,21 @@ textarea {
    padding: 10px 12px;
    border-radius: 12px;
    border: none;
-   background-color: color-mix(in srgb, white 6%, transparent);
-   backdrop-filter: blur(8px) saturate(150%);
-   -webkit-backdrop-filter: blur(8px) saturate(150%);
+   background-color: color-mix(in srgb, white 8%, transparent);
    color: var(--text);
    outline: none;
+   font-family: inherit;
+   font-size: 0.95rem;
    box-shadow:
       inset 0 0 0 1px
-         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 12%), transparent),
       inset 1px 2px 0px -1px
          color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
       inset -0.3px -1px 4px 0px
          color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
       0px 2px 6px 0px
          color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
-   transition: box-shadow 0.3s ease;
+   transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 input:focus,
 textarea:focus {
@@ -1805,7 +1795,20 @@ textarea:focus {
 }
 :root[data-theme="light"] input,
 :root[data-theme="light"] textarea {
-   background-color: color-mix(in srgb, white 50%, transparent);
+   background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Override browser autofill styling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+   -webkit-box-shadow: 0 0 0 1000px var(--bg-soft) inset !important;
+   box-shadow: 0 0 0 1000px var(--bg-soft) inset !important;
+   -webkit-text-fill-color: var(--text) !important;
+   transition: background-color 5000s ease-in-out 0s;
 }
 .footer {
    border-top: 1px solid var(--border);
@@ -2158,8 +2161,37 @@ textarea:focus {
    }
 }
 @media (prefers-reduced-motion: reduce) {
-   * {
+   *,
+   *::before,
+   *::after {
       animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
    }
+   .hero-image-wrapper { animation: none; }
+   .hero-art .ring      { animation: none; }
+   #bg-canvas           { display: none; }
 }
+
+/* ===== Low-performance device fallback ===== */
+/* Class ditambah via JS saat device lemah terdeteksi  */
+.low-perf #bg-canvas { display: none; }
+
+.low-perf .navbar,
+.low-perf .card-inner,
+.low-perf .about-card.glass,
+.low-perf .skill-group,
+.low-perf .timeline-content,
+.low-perf .contact-card.glass,
+.low-perf .contact-form.glass,
+.low-perf .filter-bar,
+.low-perf .actions .btn,
+.low-perf .nav-links {
+   backdrop-filter: none !important;
+   -webkit-backdrop-filter: none !important;
+   background-color: var(--bg-soft) !important;
+   border: 1px solid var(--border) !important;
+}
+
+.low-perf .hero-image-wrapper { animation: none; }
+.low-perf .hero-art .ring     { animation: none; }

@@ -1,14 +1,27 @@
+// ===== Device capability detection =====
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isLowEnd = (() => {
+   const cores = navigator.hardwareConcurrency || 4;
+   const mem   = navigator.deviceMemory || 4; // Chrome only, fallback 4
+   return prefersReducedMotion || cores <= 2 || mem <= 2;
+})();
+if (isLowEnd) document.documentElement.classList.add("low-perf");
+
 // ===== Background Animation (Network Particles) =====
 (function () {
    const canvas = document.getElementById("bg-canvas");
+   if (!canvas || isLowEnd) return; // skip entirely on low-end / reduced-motion
+
    const ctx = canvas.getContext("2d");
    let particlesArray;
+   let animId;
 
-   // Set canvas dimensions
    canvas.width = window.innerWidth;
    canvas.height = window.innerHeight;
 
-   // Particle Class
+   // Cap particle count: lower on mobile/small screens
+   const MAX_PARTICLES = window.innerWidth < 768 ? 40 : 80;
+
    class Particle {
       constructor(x, y, directionX, directionY, size, color) {
          this.x = x;
@@ -19,7 +32,6 @@
          this.color = color;
       }
 
-      // Draw individual particle
       draw() {
          ctx.beginPath();
          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
@@ -27,21 +39,11 @@
          ctx.fill();
       }
 
-      // Update particle position
       update() {
-         // Check if particle hits canvas boundaries
-         if (this.x > canvas.width || this.x < 0) {
-            this.directionX = -this.directionX;
-         }
-         if (this.y > canvas.height || this.y < 0) {
-            this.directionY = -this.directionY;
-         }
-
-         // Move particle
+         if (this.x > canvas.width  || this.x < 0) this.directionX = -this.directionX;
+         if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
          this.x += this.directionX;
          this.y += this.directionY;
-
-         // Draw particle
          this.draw();
       }
    }
@@ -75,21 +77,21 @@
       return theme === "light" ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.05)";
    }
 
-   // Create particle array
    function init() {
       particlesArray = [];
-      // Jumlah partikel menyesuaikan lebar layar
-      let numberOfParticles = (canvas.width * canvas.height) / 9000;
-
-      for (let i = 0; i < numberOfParticles; i++) {
-         let size = Math.random() * 2 + 1;
-         let x = Math.random() * (innerWidth - size * 2 - size * 2) + size * 2;
-         let y = Math.random() * (innerHeight - size * 2 - size * 2) + size * 2;
-         let directionX = Math.random() * 0.4 - 0.2; // Kecepatan lambat
-         let directionY = Math.random() * 0.4 - 0.2;
-         let color = getParticleColor();
-
-         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+      // Cap jumlah partikel biar tidak O(n²) kebablasan
+      const count = Math.min(
+         Math.floor((canvas.width * canvas.height) / 9000),
+         MAX_PARTICLES
+      );
+      const color = getParticleColor();
+      for (let i = 0; i < count; i++) {
+         const size = Math.random() * 2 + 1;
+         const x = Math.random() * (canvas.width  - size * 4) + size * 2;
+         const y = Math.random() * (canvas.height - size * 4) + size * 2;
+         const dx = Math.random() * 0.4 - 0.2;
+         const dy = Math.random() * 0.4 - 0.2;
+         particlesArray.push(new Particle(x, y, dx, dy, size, color));
       }
    }
 
@@ -119,22 +121,24 @@
       }
    }
 
-   // Animation Loop
    function animate() {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-      for (let i = 0; i < particlesArray.length; i++) {
-         particlesArray[i].update();
-      }
+      animId = requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) particlesArray[i].update();
       connect();
    }
 
-   // Handle Resize
+   // Debounce resize — reinit hanya setelah user selesai resize (bukan setiap pixel)
+   let resizeTimer;
    window.addEventListener("resize", function () {
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-      init();
+      cancelAnimationFrame(animId);
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+         canvas.width  = window.innerWidth;
+         canvas.height = window.innerHeight;
+         init();
+         animate();
+      }, 200);
    });
 
    // Listen for theme changes to update particle colors
