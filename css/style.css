@@ -119,19 +119,34 @@ textarea,
    left: 0;
    width: 100%;
    z-index: 50;
-   background-color: color-mix(in srgb, white 7%, transparent);
-   backdrop-filter: blur(14px) saturate(150%);
-   -webkit-backdrop-filter: blur(14px) saturate(150%);
+   background-color: color-mix(in srgb, white 6%, transparent);
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
    border: none;
    box-shadow:
-      inset 0 1px 0 0
-         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
-      inset 0 -1px 0 0
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
          color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
-      0px 1px 4px 0px
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
          color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
-      0px 4px 20px 0px
-         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent);
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+}
+:root[data-theme="light"] .navbar {
+   background-color: color-mix(in srgb, white 55%, transparent);
 }
 :root[data-theme="light"] .navbar {
    background-color: color-mix(in srgb, white 50%, transparent);
@@ -384,6 +399,18 @@ textarea,
    font-size: clamp(2.2rem, 5vw, 3.6rem);
    margin: 0;
    letter-spacing: 0.6px;
+
+   /* 3D Glass Text Effect */
+   color: #fff;
+   -webkit-text-fill-color: #fff;
+   filter:
+      drop-shadow(1px 2px 0px rgba(0, 0, 0, 0.3))
+      drop-shadow(2px 4px 0px rgba(0, 0, 0, 0.2))
+      drop-shadow(3px 6px 0px rgba(0, 0, 0, 0.10));
+}
+:root[data-theme="light"] .title {
+   color: #000;
+   -webkit-text-fill-color: #000;
 }
 .subtitle {
    margin: 8px 0 16px;
@@ -396,6 +423,10 @@ textarea,
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
    background-clip: text;
+}
+:root[data-theme="light"] #typing {
+   background: none;
+   -webkit-text-fill-color: #000;
 }
 .caret {
    display: inline-block;
@@ -1798,24 +1829,69 @@ textarea:focus {
    background-color: rgba(255, 255, 255, 0.7);
 }
 
-/* Override browser autofill styling */
+/* Override browser autofill styling — tetap jaga glass effect */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
-   -webkit-box-shadow: 0 0 0 1000px var(--bg-soft) inset !important;
-   box-shadow: 0 0 0 1000px var(--bg-soft) inset !important;
+   -webkit-box-shadow:
+      0 0 0 1000px var(--bg) inset,
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 12%), transparent),
+      inset 1px 2px 0px -1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent) !important;
+   box-shadow:
+      0 0 0 1000px var(--bg) inset,
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 12%), transparent),
+      inset 1px 2px 0px -1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent) !important;
    -webkit-text-fill-color: var(--text) !important;
    transition: background-color 5000s ease-in-out 0s;
 }
 .footer {
-   border-top: 1px solid var(--border);
    margin-top: 40px;
    padding: 24px 0;
    text-align: center;
    color: var(--muted);
+   border: none;
+   background-color: color-mix(in srgb, white 6%, transparent);
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+}
+:root[data-theme="light"] .footer {
+   background-color: color-mix(in srgb, white 55%, transparent);
 }
 .toast {
    position: fixed;

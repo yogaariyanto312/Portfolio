@@ -1,3 +1,27 @@
+// ===== Cache Manager =====
+// Setiap kali push perubahan ke production:
+//   1. Update APP_VERSION di sini (format: YYYYMMDD + 2 digit urutan)
+//   2. Update ?v= di index.html (css/style.css & js/script.js)
+const APP_VERSION = '2026053100';
+
+(function () {
+   try {
+      if (localStorage.getItem('app_v') === APP_VERSION) return;
+
+      const savedTheme = localStorage.getItem('theme'); // jaga preferensi tema
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Hapus Cache Storage API (service worker cache)
+      if ('caches' in window) {
+         caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))));
+      }
+
+      if (savedTheme) localStorage.setItem('theme', savedTheme);
+      localStorage.setItem('app_v', APP_VERSION);
+   } catch (_) { /* silent fail — jangan block app */ }
+})();
+
 // ===== Device capability detection =====
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isLowEnd = (() => {
@@ -7,10 +31,26 @@ const isLowEnd = (() => {
 })();
 if (isLowEnd) document.documentElement.classList.add("low-perf");
 
+/* Mencegah Inspect Element — di luar canvas IIFE agar selalu aktif */
+document.addEventListener('contextmenu', (e) => {
+   e.preventDefault();
+   showToast("Klik kanan dinonaktifkan!");
+});
+document.addEventListener('keydown', (e) => {
+   if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+      (e.ctrlKey && e.key === 'U')
+   ) {
+      e.preventDefault();
+      showToast("Inspect Element dinonaktifkan!");
+   }
+});
+
 // ===== Background Animation (Network Particles) =====
 (function () {
    const canvas = document.getElementById("bg-canvas");
-   if (!canvas || isLowEnd) return; // skip entirely on low-end / reduced-motion
+   if (!canvas || isLowEnd) return;
 
    const ctx = canvas.getContext("2d");
    let particlesArray;
@@ -19,7 +59,6 @@ if (isLowEnd) document.documentElement.classList.add("low-perf");
    canvas.width = window.innerWidth;
    canvas.height = window.innerHeight;
 
-   // Cap particle count: lower on mobile/small screens
    const MAX_PARTICLES = window.innerWidth < 768 ? 40 : 80;
 
    class Particle {
@@ -47,23 +86,6 @@ if (isLowEnd) document.documentElement.classList.add("low-perf");
          this.draw();
       }
    }
-
-    /* Mencegah Inspect Element */
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      showToast("Klik kanan dinonaktifkan!");
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (
-        e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || 
-        (e.ctrlKey && e.key === 'U')
-      ) {
-        e.preventDefault();
-        showToast("Inspect Element dinonaktifkan!");
-      }
-    });
 
    // Check theme color
    function getParticleColor() {
@@ -530,29 +552,41 @@ function Injil() {
    const form = document.getElementById("contact-form");
    const status = document.getElementById("form-status");
    if (!form || !status) return;
+
    const endpoint = (form.getAttribute("action") || "").trim();
+   if (!endpoint) { console.warn("[Form] action attribute missing"); return; }
+
+   // Hapus readonly dari honeypot agar FormData bisa membacanya,
+   // lalu restore setelah submit
+   const honeyInput = form.querySelector('[name="_gotcha"]');
 
    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       status.textContent = "";
       form.classList.add("is-sending");
 
+      // Temporarily allow honeypot to be read by FormData
+      if (honeyInput) honeyInput.removeAttribute("readonly");
       const fd = new FormData(form);
-      const name = String(fd.get("name") || "").trim();
-      const email = String(fd.get("email") || "").trim();
+      if (honeyInput) honeyInput.setAttribute("readonly", "");
+
+      const name    = String(fd.get("name")    || "").trim();
+      const email   = String(fd.get("email")   || "").trim();
       const message = String(fd.get("message") || "").trim();
-      const honey = String(fd.get("_gotcha") || "");
+      const honey   = String(fd.get("_gotcha") || "").trim();
 
       if (honey) {
+         // Bot detected — silent fail with generic message
          form.classList.remove("is-sending");
+         showToast("Terjadi kesalahan. Refresh halaman dan coba lagi.", "err");
          return;
       }
 
       if (!name || !email || !message) {
-         status.textContent = "Isi nama, email & pesan dulu ya.";
-         status.className = "status-err";
          form.classList.remove("is-sending");
          showToast("Isi nama, email & pesan dulu ya.", "err");
+         status.textContent = "Isi nama, email & pesan dulu ya.";
+         status.className = "status-err";
          return;
       }
 
@@ -566,24 +600,23 @@ function Injil() {
          });
 
          if (res.ok) {
-            status.textContent = "Thanks! Your message was sent ✅";
+            status.textContent = "Pesan terkirim. Makasih! ✅";
             status.className = "status-ok";
             form.reset();
             showToast("Pesan terkirim. Makasih! ✅", "ok");
          } else {
             const data = await res.json().catch(() => null);
-            const msg =
-               data && data.errors
-                  ? data.errors.map((e) => e.message).join(", ")
-                  : "Gagal mengirim. Coba lagi nanti.";
+            const msg = data?.errors
+               ? data.errors.map((err) => err.message).join(", ")
+               : "Gagal mengirim. Coba lagi nanti.";
             status.textContent = msg;
             status.className = "status-err";
             showToast(msg, "err");
          }
-      } catch (err) {
+      } catch (_) {
          status.textContent = "Jaringan error. Cek koneksi kamu ya.";
          status.className = "status-err";
-         showToast("Jaringan error. Coba lagi nanti.", "err");
+         showToast("Jaringan error. Cek koneksi kamu ya.", "err");
       } finally {
          form.classList.remove("is-sending");
       }
