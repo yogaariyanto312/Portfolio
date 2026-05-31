@@ -21,6 +21,10 @@
 
    /* Border Tegas */
    --border-btn: rgba(255, 255, 255, 0.35);
+
+   /* Liquid Glass Reflex */
+   --glass-reflex-light: 0.3;
+   --glass-reflex-dark: 2;
 }
 
 /* Light variables (activated via [data-theme="light"]) */
@@ -41,6 +45,10 @@
 
    /* Border Tegas Light */
    --border-btn: rgba(0, 0, 0, 0.4);
+
+   /* Liquid Glass Reflex */
+   --glass-reflex-light: 1;
+   --glass-reflex-dark: 1;
 }
 
 html,
@@ -106,19 +114,27 @@ textarea,
 
 /* ===== Navbar ===== */
 .navbar {
-   position: fixed; /* UBAH: dari sticky ke fixed */
+   position: fixed;
    top: 0;
-   left: 0; /* TAMBAH: pastikan mulai dari kiri */
-   width: 100%; /* TAMBAH: lebar penuh */
+   left: 0;
+   width: 100%;
    z-index: 50;
-   background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--bg) 90%, transparent),
-      color-mix(in srgb, var(--bg) 60%, transparent) 60%,
-      transparent
-   );
-   backdrop-filter: blur(10px);
-   border-bottom: 1px solid var(--border);
+   background-color: color-mix(in srgb, white 7%, transparent);
+   backdrop-filter: blur(14px) saturate(150%);
+   -webkit-backdrop-filter: blur(14px) saturate(150%);
+   border: none;
+   box-shadow:
+      inset 0 1px 0 0
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset 0 -1px 0 0
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 4px 20px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent);
+}
+:root[data-theme="light"] .navbar {
+   background-color: color-mix(in srgb, white 50%, transparent);
 }
 .nav-inner {
    display: flex;
@@ -443,9 +459,191 @@ textarea,
 .btn.ghost {
    background: rgba(255, 255, 255, 0.02);
 }
+
+/* Hero Action Buttons — Liquid Glass */
+.actions .btn {
+   border: none;
+   border-radius: 99em;
+   background-color: color-mix(in srgb, white 8%, transparent);
+   backdrop-filter: blur(10px) saturate(150%);
+   -webkit-backdrop-filter: blur(10px) saturate(150%);
+   color: var(--text);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 1px 5px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 6px 16px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.actions .btn.primary {
+   background-color: color-mix(in srgb, var(--primary) 18%, transparent);
+   color: var(--primary);
+}
+:root[data-theme="light"] .actions .btn {
+   background-color: color-mix(in srgb, white 50%, transparent);
+   color: var(--text);
+}
+:root[data-theme="light"] .actions .btn.primary {
+   background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+   color: var(--primary);
+}
+.actions .btn:hover {
+   transform: translateY(-2px);
+   background-color: color-mix(in srgb, white 14%, transparent);
+   color: var(--text);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+}
+.actions .btn.primary:hover {
+   background-color: color-mix(in srgb, var(--primary) 28%, transparent);
+   color: var(--primary);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 4px 14px 0px
+         color-mix(in srgb, var(--primary) 30%, transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, var(--primary) 20%, transparent);
+}
+.actions .btn:active {
+   transform: translateY(0px);
+}
 .btn.small {
    padding: 7px 10px;
    font-size: 0.82rem;
+}
+
+/* Project Card CTA — Liquid Glass Style */
+.cta .btn {
+   border: none;
+   border-radius: 99em;
+   background-color: color-mix(in srgb, white 8%, transparent);
+   backdrop-filter: blur(10px) saturate(150%);
+   -webkit-backdrop-filter: blur(10px) saturate(150%);
+   color: var(--text);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 1px 5px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 6px 16px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.cta .btn.primary {
+   background-color: color-mix(in srgb, var(--primary) 18%, transparent);
+   color: var(--primary);
+}
+:root[data-theme="light"] .cta .btn {
+   background-color: color-mix(in srgb, white 50%, transparent);
+   color: var(--text);
+}
+:root[data-theme="light"] .cta .btn.primary {
+   background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+   color: var(--primary);
+}
+.cta .btn:hover {
+   transform: translateY(-2px);
+   background-color: color-mix(in srgb, white 14%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+}
+.cta .btn.primary:hover {
+   background-color: color-mix(in srgb, var(--primary) 28%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 4px 14px 0px
+         color-mix(in srgb, var(--primary) 30%, transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, var(--primary) 20%, transparent);
+}
+.cta .btn:active {
+   transform: translateY(0px);
 }
 
 /* Socials */
@@ -584,14 +782,7 @@ textarea,
    display: flex;
    flex-direction: column;
    gap: 16px;
-   transition:
-      transform 0.3s ease,
-      border-color 0.3s ease;
-}
-
-.about-card:hover {
-   transform: translateY(-5px);
-   border-color: var(--primary);
+   transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .about-main {
@@ -696,6 +887,146 @@ textarea,
    box-shadow: var(--shadow);
 }
 
+/* About Cards — Liquid Glass (overrides .glass) */
+.about-card.glass {
+   background-color: color-mix(in srgb, white 6%, transparent);
+   border: none;
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+}
+:root[data-theme="light"] .about-card.glass {
+   background-color: color-mix(in srgb, white 55%, transparent);
+}
+.about-card.glass:hover {
+   transform: translateY(-6px);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 6%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 22%), transparent),
+      0px 20px 60px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      0px 0px 0px 1px
+         color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+/* Contact Cards — Liquid Glass (overrides .glass) */
+.contact-card.glass,
+.contact-form.glass {
+   background-color: color-mix(in srgb, white 6%, transparent);
+   border: none;
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+}
+:root[data-theme="light"] .contact-card.glass,
+:root[data-theme="light"] .contact-form.glass {
+   background-color: color-mix(in srgb, white 55%, transparent);
+}
+
+/* Send Button */
+.contact-form .btn {
+   border: none;
+   border-radius: 99em;
+   background-color: color-mix(in srgb, var(--primary) 18%, transparent);
+   color: var(--primary);
+   backdrop-filter: blur(10px) saturate(150%);
+   -webkit-backdrop-filter: blur(10px) saturate(150%);
+   cursor: pointer;
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      0px 1px 5px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 6px 16px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.contact-form .btn:hover {
+   transform: translateY(-2px);
+   color: var(--primary);
+   background-color: color-mix(in srgb, var(--primary) 28%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 4px 14px 0px
+         color-mix(in srgb, var(--primary) 30%, transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, var(--primary) 20%, transparent);
+}
+.contact-form .btn:active {
+   transform: translateY(0px);
+}
+
 /* Soft Skills */
 .soft-skills-grid {
    display: flex;
@@ -707,19 +1038,65 @@ textarea,
    display: inline-block;
    padding: 8px 14px;
    border-radius: 99px;
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid var(--border);
    font-size: 0.85rem;
    font-weight: 500;
    color: var(--muted);
-   transition: all 0.2s ease;
    cursor: default;
+   border: none;
+   background-color: color-mix(in srgb, white 8%, transparent);
+   backdrop-filter: blur(10px) saturate(150%);
+   -webkit-backdrop-filter: blur(10px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 1px 5px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+:root[data-theme="light"] .skill-tag {
+   background-color: color-mix(in srgb, white 50%, transparent);
 }
 .skill-tag:hover {
-   background: rgba(255, 255, 255, 0.08);
    transform: translateY(-2px);
-   border-color: var(--primary);
    color: var(--text);
+   background-color: color-mix(in srgb, white 14%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
 }
 
 /* ===== SKILLS (REDESIGNED) ===== */
@@ -731,15 +1108,65 @@ textarea,
 
 .skill-group {
    padding: 24px;
-   transition:
-      transform 0.3s ease,
-      border-color 0.3s ease;
    display: flex;
    flex-direction: column;
+
+   /* Override .glass — Liquid Glass */
+   background-color: color-mix(in srgb, white 6%, transparent);
+   border: none;
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+   transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+:root[data-theme="light"] .skill-group {
+   background-color: color-mix(in srgb, white 55%, transparent);
 }
 .skill-group:hover {
-   transform: translateY(-5px);
-   border-color: var(--primary);
+   transform: translateY(-6px);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 6%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 22%), transparent),
+      0px 20px 60px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      0px 0px 0px 1px
+         color-mix(in srgb, var(--primary) 35%, transparent);
 }
 
 .skill-header {
@@ -884,18 +1311,63 @@ textarea,
    font-weight: 600;
 }
 .timeline-content {
-   background: var(--glass);
-   border: 1px solid var(--border);
+   background-color: color-mix(in srgb, white 6%, transparent);
+   border: none;
    border-radius: 16px;
    padding: 24px;
-   box-shadow: var(--shadow);
-   transition:
-      transform 0.3s ease,
-      border-color 0.3s ease;
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+   transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+:root[data-theme="light"] .timeline-content {
+   background-color: color-mix(in srgb, white 55%, transparent);
 }
 .timeline-content:hover {
-   transform: translateX(5px);
-   border-color: var(--primary);
+   transform: translateX(6px);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 6%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 22%), transparent),
+      0px 20px 60px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      0px 0px 0px 1px
+         color-mix(in srgb, var(--primary) 35%, transparent);
 }
 .timeline-header {
    display: flex;
@@ -954,24 +1426,73 @@ textarea,
 }
 
 .card-inner {
-   background: var(--glass);
-   border: 1px solid var(--border);
-   border-radius: 20px; /* Radius lebih besar */
-   overflow: hidden;
-   box-shadow: var(--shadow);
+   background-color: color-mix(in srgb, white 6%, transparent);
+   border: none;
+   border-radius: 20px;
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 16%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 12px 36px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
+   backdrop-filter: blur(12px) saturate(150%);
+   -webkit-backdrop-filter: blur(12px) saturate(150%);
    height: 100%;
    display: flex;
    flex-direction: column;
-   position: relative; /* Context for badge */
+   position: relative;
+   transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+:root[data-theme="light"] .card-inner {
+   background-color: color-mix(in srgb, white 55%, transparent);
 }
 
 .card-inner:hover {
-   border-color: var(--primary); /* Highlight border on hover */
+   transform: translateY(-6px);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 2px 4px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 70%), transparent),
+      inset -2px -3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 50%), transparent),
+      inset -4px -10px 2px -7px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 40%), transparent),
+      inset -0.5px -2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      inset -2px 3px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 0px 4px 6px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset 3px -8px 2px -5px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 6%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 22%), transparent),
+      0px 20px 60px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      0px 0px 0px 1px
+         color-mix(in srgb, var(--primary) 35%, transparent);
 }
 
 .card-media {
    position: relative;
    overflow: hidden;
+   border-radius: 20px 20px 0 0;
    flex-shrink: 0;
    aspect-ratio: 40/19;
 }
@@ -1007,17 +1528,26 @@ textarea,
    position: absolute;
    top: 12px;
    right: 12px;
-   background: rgba(0, 0, 0, 0.6);
-   backdrop-filter: blur(4px);
+   background-color: color-mix(in srgb, white 12%, transparent);
+   backdrop-filter: blur(8px) saturate(150%);
+   -webkit-backdrop-filter: blur(8px) saturate(150%);
    color: #fff;
    font-size: 0.75rem;
    font-weight: 600;
-   padding: 4px 10px;
-   border-radius: 8px;
+   padding: 4px 12px;
+   border-radius: 99em;
    z-index: 2;
-   border: 1px solid rgba(255, 255, 255, 0.1);
+   border: none;
    text-transform: uppercase;
    letter-spacing: 0.5px;
+   box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+      inset 1.5px 2px 0px -1px rgba(255, 255, 255, 0.5),
+      inset -1px -1px 0px -1px rgba(255, 255, 255, 0.3),
+      0px 2px 8px rgba(0, 0, 0, 0.3);
+}
+:root[data-theme="light"] .project-badge {
+   color: #000;
 }
 
 .card-body {
@@ -1050,17 +1580,63 @@ textarea,
 .tags span {
    font-size: 0.75rem;
    padding: 4px 10px;
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid var(--border-btn);
-   border-radius: 6px;
+   border-radius: 99px;
    color: var(--text);
-   opacity: 0.9;
-   transition: all 0.2s ease;
+   border: none;
+   background-color: color-mix(in srgb, white 8%, transparent);
+   backdrop-filter: blur(10px) saturate(150%);
+   -webkit-backdrop-filter: blur(10px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 1px 5px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+:root[data-theme="light"] .tags span {
+   background-color: color-mix(in srgb, white 50%, transparent);
 }
 .tags span:hover {
-   border-color: var(--primary);
    transform: translateY(-2px);
-   background: rgba(255, 255, 255, 0.08);
+   color: var(--text);
+   background-color: color-mix(in srgb, white 14%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 8px 24px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
 }
 
 .cta {
@@ -1084,58 +1660,89 @@ textarea,
    height: 15px;
 }
 
-/* Filter Bar (Redesigned as Dock) */
+/* Filter Bar — Liquid Glass Dock */
 .filter-bar {
    display: inline-flex;
    justify-content: center;
    gap: 6px;
    margin: 0 auto 40px;
    flex-wrap: wrap;
-
-   /* Glass Capsule Style */
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid var(--border);
    padding: 6px;
    border-radius: 100px;
-   backdrop-filter: blur(10px);
+
+   /* Liquid Glass */
+   border: none;
+   background-color: color-mix(in srgb, white 8%, transparent);
+   backdrop-filter: blur(8px) saturate(150%);
+   -webkit-backdrop-filter: blur(8px) saturate(150%);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 1px 5px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 6px 16px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
 }
 :root[data-theme="light"] .filter-bar {
-   background: rgba(0, 0, 0, 0.03);
+   background-color: color-mix(in srgb, white 40%, transparent);
 }
 
 .filter-btn {
    background: transparent;
    color: var(--muted);
-   border: none; /* Reset border default */
+   border: none;
    border-radius: 99px;
    padding: 8px 20px;
    cursor: pointer;
-   position: relative;
-   overflow: hidden;
    font-weight: 500;
    font-size: 0.95rem;
-   transition: all 0.3s ease;
-   box-shadow: none;
+   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .filter-btn:hover {
    color: var(--text);
-   background: rgba(255, 255, 255, 0.05);
-   transform: translateY(0); /* Reset transform standar */
-   box-shadow: none;
+   background-color: color-mix(in srgb, white 10%, transparent);
 }
 :root[data-theme="light"] .filter-btn:hover {
-   background: rgba(0, 0, 0, 0.05);
+   background-color: color-mix(in srgb, black 6%, transparent);
 }
 
 .filter-btn.active {
-   background: var(--primary);
-   color: #fff; /* Teks putih di tombol aktif */
-   box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 40%, transparent);
+   color: var(--primary);
+   background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 2px 1px 0px -1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -1.5px -1px 0px -1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -2px -6px 1px -5px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -1px 2px 3px -1px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px -4px 1px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 3px 6px 0px
+         color-mix(in srgb, var(--primary) 25%, transparent);
 }
 .filter-btn.active:hover {
-   background: var(--primary);
-   opacity: 0.9;
+   background-color: color-mix(in srgb, var(--primary) 28%, transparent);
+   opacity: 1;
 }
 
 /* Contact */
@@ -1167,10 +1774,38 @@ textarea {
    width: 100%;
    padding: 10px 12px;
    border-radius: 12px;
-   border: 1px solid var(--border);
-   background: rgba(255, 255, 255, 0.04);
+   border: none;
+   background-color: color-mix(in srgb, white 6%, transparent);
+   backdrop-filter: blur(8px) saturate(150%);
+   -webkit-backdrop-filter: blur(8px) saturate(150%);
    color: var(--text);
    outline: none;
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1px 2px 0px -1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+      0px 2px 6px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: box-shadow 0.3s ease;
+}
+input:focus,
+textarea:focus {
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, var(--primary) 60%, transparent),
+      inset 1px 2px 0px -1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      0px 0px 0px 3px
+         color-mix(in srgb, var(--primary) 15%, transparent),
+      0px 4px 12px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent);
+}
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea {
+   background-color: color-mix(in srgb, white 50%, transparent);
 }
 .footer {
    border-top: 1px solid var(--border);
@@ -1228,14 +1863,36 @@ textarea {
    gap: 16px;
    padding: 16px 20px;
    border-radius: 16px;
-
-   /* Base Style */
-   background: var(--glass);
-   border: 1px solid var(--border-btn);
    text-decoration: none;
    position: relative;
    overflow: hidden;
-   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   border: none;
+   background-color: color-mix(in srgb, white 10%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 2px 8px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 4px 16px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 8%), transparent);
+   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+:root[data-theme="light"] .reach-item {
+   background-color: color-mix(in srgb, white 65%, transparent);
 }
 
 /* Icon Box Wrapper */
@@ -1289,11 +1946,26 @@ textarea {
 
 /* Hover Effects */
 .reach-item:hover {
-   transform: translateY(-4px) translateX(2px);
-   background: var(--bg-soft);
-   border-color: var(--primary);
-   /* Efek bayangan solid (retro-modern touch) */
-   box-shadow: -4px 4px 0 var(--primary);
+   transform: translateY(-3px);
+   background-color: color-mix(in srgb, white 18%, transparent);
+   box-shadow:
+      inset 0 0 0 1px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 15%), transparent),
+      inset 1.8px 3px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 90%), transparent),
+      inset -2px -2px 0px -2px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+      inset -3px -8px 1px -6px
+         color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 10%), transparent),
+      0px 6px 20px 0px
+         color-mix(in srgb, black calc(var(--glass-reflex-dark) * 18%), transparent),
+      0px 0px 0px 1px
+         color-mix(in srgb, var(--primary) 35%, transparent);
+}
+:root[data-theme="light"] .reach-item:hover {
+   background-color: color-mix(in srgb, white 80%, transparent);
 }
 
 .reach-item:hover .reach-icon-box {
@@ -1392,14 +2064,27 @@ textarea {
       position: absolute;
       right: 4.201%;
       top: 78px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
+      background-color: color-mix(in srgb, var(--bg-soft) 88%, transparent);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      border: none;
       border-radius: 14px;
-      box-shadow: var(--shadow);
+      box-shadow:
+         inset 0 0 0 1px
+            color-mix(in srgb, white calc(var(--glass-reflex-light) * 10%), transparent),
+         inset 1.5px 2px 0px -1px
+            color-mix(in srgb, white calc(var(--glass-reflex-light) * 80%), transparent),
+         inset -1px -1px 0px -1px
+            color-mix(in srgb, white calc(var(--glass-reflex-light) * 60%), transparent),
+         0px 8px 24px
+            color-mix(in srgb, black calc(var(--glass-reflex-dark) * 15%), transparent),
+         0px 2px 6px
+            color-mix(in srgb, black calc(var(--glass-reflex-dark) * 12%), transparent);
       padding: 10px;
       flex-direction: column;
       width: 180px;
       gap: 8px;
+      text-align: center;
    }
    .nav-toggle {
       display: block;
