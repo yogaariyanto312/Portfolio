@@ -21,20 +21,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Yoga Ariyanto — QC Engineering & Web Developer</title>
-  <meta name="description" content="Portfolio Yoga Ariyanto — QC Engineering yang juga ngulik web & jaringan. Fokus kualitas, kecepatan, dan UX yang clean." />
+  <title>Yoga Ariyanto — QC Engineer & Web Developer | Portfolio</title>
+  <meta name="description" content="Portfolio Yoga Ariyanto — QC Engineer di industri manufaktur listrik, Web Developer, dan Network Engineer. Lihat projects, skills, dan pengalaman kerja." />
+  <meta name="author" content="Yoga Ariyanto" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="keywords" content="Yoga Ariyanto, QC Engineer, Web Developer, Network Engineer, Portfolio, JavaScript, HTML, CSS, Minecraft Server" />
 
-  <!-- Theme colors (sinkron auto dengan preferensi OS) -->
+  <!-- Theme colors -->
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8fb">
   <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#0b0f14">
 
-  <!-- Canonical -->
+  <!-- Canonical & hreflang (bilingual ID/EN) -->
   <link rel="canonical" href="https://yogaariyanto.com/" />
-
-  <!-- Language -->
   <link rel="alternate" href="https://yogaariyanto.com/" hreflang="id" />
-  <meta name="content-language" content="id" />
+  <link rel="alternate" href="https://yogaariyanto.com/" hreflang="en" />
+  <link rel="alternate" href="https://yogaariyanto.com/" hreflang="x-default" />
 
   <!-- Fonts (rapi: no duplicate preconnect) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -50,23 +52,31 @@
 
   <!-- Icons -->
   <link rel="icon" href="/asset/icon/favicon-32x32.png" sizes="32x32" type="image/png">
-  <!-- <link rel="apple-touch-icon" href="/asset/icon/apple-touch-icon.png" sizes="180x180"> -->
+  <link rel="apple-touch-icon" href="/asset/icon/apple-touch-icon.png" sizes="180x180">
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Yoga Ariyanto — Portfolio">
-  <meta property="og:title" content="Yoga Ariyanto — QC Engineering & Web Developer">
-  <meta property="og:description" content="Showcase projects, skills, experience.">
+  <meta property="og:title" content="Yoga Ariyanto — QC Engineer & Web Developer">
+  <meta property="og:description" content="QC Engineer di industri manufaktur listrik, Web Developer, dan Network Engineer. Portfolio berisi projects web, game, dan server yang saya bangun.">
   <meta property="og:url" content="https://yogaariyanto.com/">
   <meta property="og:image" content="https://yogaariyanto.com/asset/logo/opengraph.png">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Yoga Ariyanto Portfolio Preview">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="profile:first_name" content="Yoga">
+  <meta property="profile:last_name" content="Ariyanto">
 
-  <!-- Twitter -->
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Yoga Ariyanto — QC Engineering & Web Developer">
-  <meta name="twitter:description" content="Portfolio, projek, skills, experience, dan kontak.">
+  <meta name="twitter:site" content="@yoga_ariyanto312">
+  <meta name="twitter:creator" content="@yoga_ariyanto312">
+  <meta name="twitter:title" content="Yoga Ariyanto — QC Engineer & Web Developer">
+  <meta name="twitter:description" content="QC Engineer & Web Developer. Projects web, game, dan server. Lihat portfolio selengkapnya di yogaariyanto.com">
   <meta name="twitter:image" content="https://yogaariyanto.com/asset/logo/opengraph.png">
+  <meta name="twitter:image:alt" content="Yoga Ariyanto Portfolio Preview">
 
   <!-- JSON-LD (WebSite + Person + ItemList Projects) -->
   <script type="application/ld+json">
@@ -78,22 +88,33 @@
         "@id":"https://yogaariyanto.com/#website",
         "url":"https://yogaariyanto.com/",
         "name":"Yoga Ariyanto — Portfolio",
-        "inLanguage":"id",
-        "publisher":{"@id":"https://yogaariyanto.com/#person"},
-        "potentialAction":{
-          "@type":"SearchAction",
-          "target":"https://yogaariyanto.com/?q={search_term_string}",
-          "query-input":"required name=search_term_string"
-        }
+        "inLanguage":["id","en"],
+        "publisher":{"@id":"https://yogaariyanto.com/#person"}
+      },
+      {
+        "@type":"ProfilePage",
+        "@id":"https://yogaariyanto.com/#profilepage",
+        "url":"https://yogaariyanto.com/",
+        "name":"Yoga Ariyanto — QC Engineer & Web Developer",
+        "description":"Portfolio Yoga Ariyanto — QC Engineer, Web Developer, dan Network Engineer.",
+        "mainEntity":{"@id":"https://yogaariyanto.com/#person"}
       },
       {
         "@type":"Person",
         "@id":"https://yogaariyanto.com/#person",
         "name":"Yoga Ariyanto",
-        "jobTitle":["QC Engineering","Web Developer","Network Engineer"],
+        "givenName":"Yoga",
+        "familyName":"Ariyanto",
+        "jobTitle":["QC Engineer","Web Developer","Network Engineer"],
         "url":"https://yogaariyanto.com/",
-        "image":"https://yogaariyanto.com/asset/profile/profile4.jpg",
+        "image":{
+          "@type":"ImageObject",
+          "url":"https://yogaariyanto.com/asset/profile/profile2.webp",
+          "width":400,
+          "height":400
+        },
         "email":"mailto:yogaariyanto312@gmail.com",
+        "knowsAbout":["Quality Control","Web Development","HTML","CSS","JavaScript","Network Engineering","Welding Inspection"],
         "sameAs":[
           "https://github.com/yogaariyanto312",
           "https://card.yogaariyanto.com",
@@ -105,14 +126,15 @@
         "@id":"https://yogaariyanto.com/#projects",
         "name":"Projects",
         "itemListOrder":"http://schema.org/ItemListOrderAscending",
-        "numberOfItems":6,
+        "numberOfItems":7,
         "itemListElement":[
-          {"@type":"CreativeWork","position":1,"name":"NeedTwoGoo","url":"https://yogaariyanto.com/#projects","image":"https://yogaariyanto.com/asset/logo/server-icon2.png","description":"Server Minecraft dengan AMP Panel & Docker."},
-          {"@type":"CreativeWork","position":2,"name":"Card-LinkTree Clone","url":"https://yogaariyanto.com/#projects","image":"https://yogaariyanto.com/projects/gameyoga/img/Card.png","description":"Linktree-style modern glassmorphism."},
-          {"@type":"CreativeWork","position":3,"name":"TowerGame","url":"https://yogaariyanto.com/#projects","image":"https://yogaariyanto.com/projects/gameyoga/img/TowerGame.png","description":"Game tower sederhana."},
-          {"@type":"CreativeWork","position":4,"name":"Snake Games","url":"https://yogaariyanto.com/#projects","image":"https://yogaariyanto.com/projects/gameyoga/img/snake_thumbnail_512.png","description":"Game ular klasik."},
-          {"@type":"CreativeWork","position":5,"name":"Chess Games","url":"https://yogaariyanto.com/#projects","image":"https://yogaariyanto.com/projects/gameyoga/img/catur.png","description":"Game catur web."},
-          {"@type":"CreativeWork","position":6,"name":"FlappyPixel Games","url":"https://yogaariyanto.com/#projects","image":"https://yogaariyanto.com/projects/gameyoga/img/flappybird.png","description":"Game flappy pixel."}
+          {"@type":"CreativeWork","position":1,"name":"NeedTwoGoo","url":"https://n2g.my.id","image":"https://yogaariyanto.com/asset/logo/server-icon2.png","description":"Self-hosted Minecraft server managed with AMP Panel and Docker."},
+          {"@type":"CreativeWork","position":2,"name":"Card-LinkTree Clone","url":"https://card.yogaariyanto.com","image":"https://yogaariyanto.com/projects/gameyoga/img/Card.png","description":"Modern personal link page with glassmorphism effects."},
+          {"@type":"CreativeWork","position":3,"name":"QC Process Tracker","url":"https://qc.yogaariyanto.com","image":"https://yogaariyanto.com/asset/logo/qc-dasboard.png","description":"Web dashboard for quality control process monitoring."},
+          {"@type":"CreativeWork","position":4,"name":"TowerGame","url":"https://yogaariyanto.com/projects/gameyoga/game/tower-game/index.html","image":"https://yogaariyanto.com/asset/logo/StackTower.png","description":"Browser-based stack tower game built with vanilla JavaScript."},
+          {"@type":"CreativeWork","position":5,"name":"Snake Games","url":"https://yogaariyanto.com/projects/gameyoga/game/snake/index.html","image":"https://yogaariyanto.com/asset/logo/snake.png","description":"Classic snake game with high score system."},
+          {"@type":"CreativeWork","position":6,"name":"Chess Games","url":"https://yogaariyanto.com/projects/gameyoga/game/catur/index.html","image":"https://yogaariyanto.com/asset/logo/chess-game.png","description":"Interactive web-based chess game."},
+          {"@type":"CreativeWork","position":7,"name":"FlappyPixel Games","url":"https://yogaariyanto.com/projects/gameyoga/game/FlappyPixel/index.html","image":"https://yogaariyanto.com/asset/logo/FlapyPixel.png","description":"Flappy Bird clone with pixel art aesthetics."}
         ]
       }
     ]
@@ -199,7 +221,7 @@
       <!-- Wrapper untuk animasi floating -->
       <div class="hero-image-wrapper">
         <!-- Fallback image included in case local asset is missing -->
-        <img id="avatar" data-avatar-tilt alt="Avatar Yoga" src="asset/profile/profile2.webp" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0b0f14/e6e9ef?text=Yoga+Profile'" />
+        <img id="avatar" data-avatar-tilt alt="Avatar Yoga" src="asset/profile/profile1 (2).webp" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0b0f14/e6e9ef?text=Yoga+Profile'" />
       </div>
     </div>
   </section>
