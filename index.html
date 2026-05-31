@@ -129,14 +129,15 @@
     <div class="container nav-inner">
       <a class="brand" href="#" style="font-family: 'Days One', sans-serif;">YOGA<span></span></a>
       <nav class="nav-links">
-        <a href="#home">Beranda</a>
-        <a href="#about">Tentang</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Kontak</a>
+        <a href="#home" data-i18n="nav.home">Beranda</a>
+        <a href="#about" data-i18n="nav.about">Tentang</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#contact" data-i18n="nav.contact">Kontak</a>
       </nav>
       <div style="display:flex; align-items:center; gap:10px;">
+        <button id="lang-toggle" class="lang-btn" aria-label="Toggle language" title="Toggle language">EN</button>
         <label class="theme-switch" aria-label="Toggle tema" title="Toggle tema">
           <input id="theme-switch" type="checkbox" />
           <span class="toggle--btn">
@@ -153,16 +154,13 @@
   <!-- ===== HERO ===== -->
   <section id="hero" class="hero container">
     <div class="hero-content" data-aos="fade-up">
-      <p class="eyebrow">Halo, saya</p>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Halo, saya</p>
       <h1 class="title" style="font-family: 'Days One', sans-serif;">YOGA ARIYANTO</h1>
       <h2 class="subtitle"><span id="typing"></span><span class="caret">|</span></h2>
-      <!-- Replaced alert() with clean JS function -->
-      <!-- <p class="eyebrow"><span onclick="Injil()" style="cursor:pointer;">Amsal 23:18</span></p> -->
-      <!-- <p class="desc">Saya adalah QC Engineer di industri manufaktur listrik. Yang suka ngoprek web dev, network, dan optimasi sistem.</p> -->
-      <p class="desc">Karena masa depan sungguh ada, dan harapanmu tidak akan hilang.</p>
+      <p class="desc" data-i18n="hero.desc">Karena masa depan sungguh ada, dan harapanmu tidak akan hilang.</p>
       <div class="actions">
-        <a class="btn primary" href="#projects">Lihat Project</a>
-        <a class="btn ghost" href="#contact">Kontak Saya</a>
+        <a class="btn primary" href="#projects" data-i18n="hero.btn.projects">Lihat Project</a>
+        <a class="btn ghost" href="#contact" data-i18n="hero.btn.contact">Kontak Saya</a>
       </div>
       <div class="socials">
         <!-- GitHub -->
@@ -235,8 +233,8 @@
   </section> -->
     <section id="about" class="section container" data-aos="fade-up">
     <div class="section-head">
-      <h3 class="section-title">About Me</h3>
-      <p class="section-desc">Sedikit informasi saya </p>
+      <h3 class="section-title" data-i18n="about.title">About Me</h3>
+      <p class="section-desc" data-i18n="about.desc">Sedikit informasi saya</p>
     </div>
     <div class="about-grid">
       <!-- Card 1: Main Context (Large) -->
@@ -247,8 +245,8 @@
             </svg>
         </div>
         <div>
-            <h4>Siapa Saya?</h4>
-            <p style="margin-top: 12px;">
+            <h4 data-i18n="about.who.title">Siapa Saya?</h4>
+            <p style="margin-top: 12px;" data-i18n-html="about.who.text">
                 Saya <strong>QC Engineer</strong> di industri manufaktur listrik, sekaligus developer yang gemar mengeksplorasi <strong>web</strong> dan <strong>jaringan</strong>. Standar presisi yang saya terapkan sehari-hari turut membentuk cara saya menulis kode — <em>teliti, terstruktur, dan scalable.</em>
             </p>
         </div>
@@ -257,15 +255,15 @@
         <div class="mini-stat">
             <div class="stat-item">
                 <strong data-count="2" data-suffix="+">2+</strong>
-                <span>Years Exp</span>
+                <span data-i18n="about.stat.exp">Years Exp</span>
             </div>
             <div class="stat-item">
                 <strong data-count="10" data-suffix="+">10+</strong>
-                <span>Projects</span>
+                <span data-i18n="about.stat.projects">Projects</span>
             </div>
             <div class="stat-item">
                 <strong data-count="100" data-suffix="%">100%</strong>
-                <span>Committed</span>
+                <span data-i18n="about.stat.committed">Committed</span>
             </div>
         </div>
       </div>
@@ -278,7 +276,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
             </div>
-            <h4>Soft Skills</h4>
+            <h4 data-i18n="about.soft.title">Soft Skills</h4>
         </div>
         <div class="soft-skills-grid">
           <span class="skill-tag">Analytical Thinking</span>
@@ -297,9 +295,9 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
             </div>
-            <h4>Misi & Fokus</h4>
+            <h4 data-i18n="about.mission.title">Misi & Fokus</h4>
         </div>
-        <p>
+        <p data-i18n-html="about.mission.text">
             Berfokus pada tantangan yang berdampak nyata — membangun sistem yang andal, menekan defect, dan menciptakan <em>user experience</em> yang intuitif.
         </p>
       </div>
@@ -344,9 +342,8 @@
   <!-- ===== SKILLS ===== -->
   <section id="skills" class="section container" data-aos="fade-up">
     <div class="section-head">
-      <h3 class="section-title">Skills</h3>
-      <!-- <p class="section-desc">Campuran engineering + dev yang kepake harian.</p> -->
-      <p class="section-desc">Skills yang saya miliki dan yang lagi saya kembangkan.</p>
+      <h3 class="section-title" data-i18n="skills.title">Skills</h3>
+      <p class="section-desc" data-i18n="skills.desc">Skills yang saya miliki dan yang lagi saya kembangkan.</p>
     </div>
     <div class="skills-grid">
       <!-- Group 1: Web Development -->
@@ -367,21 +364,21 @@
            </div>
            <div class="skill-item">
               <div class="skill-info">
-                 <p>React</p>
+                 <p>React/Next.js</p>
                  <p class="percent">10%</p>
               </div>
               <div class="bar"><span data-progress="10%"></span></div>
            </div>
            <div class="skill-item">
               <div class="skill-info">
-                 <p>Bootstrap/AOS</p>
-                 <p class="percent">45%</p>
+                 <p>Laravel</p>
+                 <p class="percent">25%</p>
               </div>
-              <div class="bar"><span data-progress="45%"></span></div>
+              <div class="bar"><span data-progress="25%"></span></div>
            </div>
            <div class="skill-item">
               <div class="skill-info">
-                 <p>Tailwind CSS</p>
+                 <p>Tailwind CSS/Bootstrap</p>
                  <p class="percent">35%</p>
               </div>
               <div class="bar"><span data-progress="35%"></span></div>
@@ -467,8 +464,8 @@
   <!-- ===== EXPERIENCE ===== -->
   <section id="experience" class="section container" data-aos="fade-up">
     <div class="section-head">
-      <h3 class="section-title">Experience</h3>
-      <p class="section-desc">Pengalaman kerja dan magang saya.</p>
+      <h3 class="section-title" data-i18n="exp.title">Experience</h3>
+      <p class="section-desc" data-i18n="exp.desc">Pengalaman kerja dan magang saya.</p>
     </div>
 
     <div class="timeline">
@@ -483,11 +480,11 @@
                      class="timeline-logo"
                      onerror="this.onerror=null;this.src='https://placehold.co/100x100/1a1a1a/e6e9ef?text=Asata'">
                 <div class="timeline-title">
-                    <h4>Quality Control</h4>
+                    <h4 data-i18n="exp.job1.title">Quality Control</h4>
                     <span class="company">PT. Asata Utama Electrical Industries</span>
                 </div>
             </div>
-            <p class="timeline-desc">
+            <p class="timeline-desc" data-i18n="exp.job1.desc">
                 Menjalankan quality control di lini produksi komponen listrik — mulai dari inspeksi visual dan dimensional welding, verifikasi WPS, hingga dokumentasi defect dan koordinasi perbaikan bersama tim produksi.
             </p>
             <div class="tags">
@@ -509,11 +506,11 @@
                      class="timeline-logo"
                      onerror="this.onerror=null;this.src='https://placehold.co/100x100/1a1a1a/e6e9ef?text=SPC'">
                 <div class="timeline-title">
-                    <h4>Quality Control Intern</h4>
+                    <h4 data-i18n="exp.job2.title">Quality Control Intern</h4>
                     <span class="company">SPC Official</span>
                 </div>
             </div>
-            <p class="timeline-desc">
+            <p class="timeline-desc" data-i18n="exp.job2.desc">
                 Mendukung proses QC perangkat CCTV melalui burn-in test, inspeksi jaringan, verifikasi firmware, dan penanganan unit DOA — pengalaman yang membentuk dasar pendekatan sistematis saya dalam quality assurance.
             </p>
             <div class="tags">
@@ -529,17 +526,17 @@
   <!-- ===== PROJECTS ===== -->
   <section id="projects" class="section container" data-aos="fade-up">
     <div class="section-head">
-      <h3 class="section-title">Projects</h3>
-      <p class="section-desc">Karya dan eksperimen terbaru.</p>
+      <h3 class="section-title" data-i18n="projects.title">Projects</h3>
+      <p class="section-desc" data-i18n="projects.desc">Karya dan eksperimen terbaru.</p>
     </div>
 
     <!-- Filter (New Dock Style) -->
     <div style="text-align: center;"> <!-- Wrapper untuk centering dock -->
         <div class="filter-bar">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="web">Web</button>
-          <button class="filter-btn" data-filter="server">Server</button>
-          <button class="filter-btn" data-filter="game">Game</button>
+          <button class="filter-btn active" data-filter="all" data-i18n="filter.all">All</button>
+          <button class="filter-btn" data-filter="web" data-i18n="filter.web">Web</button>
+          <button class="filter-btn" data-filter="server" data-i18n="filter.server">Server</button>
+          <button class="filter-btn" data-filter="game" data-i18n="filter.game">Game</button>
         </div>
     </div>
 
@@ -552,8 +549,8 @@
             <img loading="lazy" alt="NeedTwoGoo Dashboard" src="asset/logo/server-icon2.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/2f9fe8/ffffff?text=Minecraft+Server'"/>
           </div>
           <div class="card-body">
-            <h4>NeedTwoGoo</h4>
-            <p>Server Minecraft self-hosted yang dikelola dengan AMP Panel dan Docker — dirancang untuk memberikan pengalaman bermain yang stabil dan mudah diakses.</p>
+            <h4 data-i18n="p1.name">NeedTwoGoo</h4>
+            <p data-i18n="p1.desc">Server Minecraft self-hosted yang dikelola dengan AMP Panel dan Docker — dirancang untuk memberikan pengalaman bermain yang stabil dan mudah diakses.</p>
             <div class="tags"><span>Java</span><span>Kotlin</span><span>Docker</span><span>AMP</span></div>
             <div class="cta">
               <a href="https://n2g.my.id" class="btn btn-icon small primary">
@@ -577,8 +574,8 @@
             <img loading="lazy" alt="QC Process Tracker" src="projects/gameyoga/img/Card.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/80ffea/0b0f14?text=LinkTree+Clone'"/>
           </div>
           <div class="card-body">
-            <h4>Card-LinkTree Clone</h4>
-            <p>Halaman link personal bergaya modern dengan efek glassmorphism dan animasi halus — satu tautan untuk semua profil sosial media dan karya.</p>
+            <h4 data-i18n="p2.name">Card-LinkTree Clone</h4>
+            <p data-i18n="p2.desc">Halaman link personal bergaya modern dengan efek glassmorphism dan animasi halus — satu tautan untuk semua profil sosial media dan karya.</p>
             <div class="tags"><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
             <div class="cta">
               <a href="https://card.yogaariyanto.com" class="btn btn-icon small primary">
@@ -602,8 +599,8 @@
             <img loading="lazy" alt="QC Process Tracker" src="asset/logo/qc-dasboard.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/80ffea/0b0f14?text=LinkTree+Clone'"/>
           </div>
           <div class="card-body">
-            <h4>QC Process Tracker</h4>
-            <p>Dashboard berbasis web untuk memantau dan mendokumentasikan proses quality control di lini produksi — mempermudah pencatatan inspeksi dan pelacakan defect.</p>
+            <h4 data-i18n="p3.name">QC Process Tracker</h4>
+            <p data-i18n="p3.desc">Dashboard berbasis web untuk memantau dan mendokumentasikan proses quality control di lini produksi — mempermudah pencatatan inspeksi dan pelacakan defect.</p>
             <div class="tags"><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
             <div class="cta">
               <a href="https://qc.yogaariyanto.com" class="btn btn-icon small primary">
@@ -627,8 +624,8 @@
             <img loading="lazy" alt="Tower Game Dashboard" src="asset/logo/StackTower.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/4cc9f0/0b0f14?text=Tower+Game'"/>
           </div>
           <div class="card-body">
-            <h4>TowerGame</h4>
-            <p>Game stack tower berbasis browser yang menantang refleks dan presisi pemain. Dibangun murni dengan HTML, CSS, dan JavaScript tanpa library game engine.</p>
+            <h4 data-i18n="p4.name">TowerGame</h4>
+            <p data-i18n="p4.desc">Game stack tower berbasis browser yang menantang refleks dan presisi pemain. Dibangun murni dengan HTML, CSS, dan JavaScript tanpa library game engine.</p>
             <div class="tags"><span>Bootstrap</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
             <div class="cta">
               <a href="https://yogaariyanto.com/projects/gameyoga/game/tower-game/index.html" class="btn btn-icon small primary">
@@ -652,8 +649,8 @@
             <img loading="lazy" alt="Snake Games" src="asset/logo/snake.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/ff7b72/ffffff?text=Snake+Game'"/>
           </div>
           <div class="card-body">
-            <h4>Snake Games</h4>
-            <p>Implementasi klasik game ular dengan kontrol yang responsif dan sistem high score. Dibangun dengan JavaScript vanilla untuk pengalaman bermain yang mulus langsung di browser.</p>
+            <h4 data-i18n="p5.name">Snake Games</h4>
+            <p data-i18n="p5.desc">Implementasi klasik game ular dengan kontrol yang responsif dan sistem high score. Dibangun dengan JavaScript vanilla untuk pengalaman bermain yang mulus langsung di browser.</p>
             <div class="tags"><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
             <div class="cta">
               <a href="https://yogaariyanto.com/projects/gameyoga/game/snake/index.html" class="btn btn-icon small primary">
@@ -677,8 +674,8 @@
             <img loading="lazy" alt="Chess Games" src="asset/logo/chess-game.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/2f9fe8/ffffff?text=Chess+Game'"/>
           </div>
           <div class="card-body">
-            <h4>Chess Games</h4>
-            <p>Game catur interaktif berbasis web dengan logika pergerakan bidak yang lengkap. Cocok untuk berlatih strategi catur kapan saja langsung dari browser.</p>
+            <h4 data-i18n="p6.name">Chess Games</h4>
+            <p data-i18n="p6.desc">Game catur interaktif berbasis web dengan logika pergerakan bidak yang lengkap. Cocok untuk berlatih strategi catur kapan saja langsung dari browser.</p>
             <div class="tags"><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
             <div class="cta">
               <a href="https://yogaariyanto.com/projects/gameyoga/game/catur/index.html" class="btn btn-icon small primary">
@@ -702,8 +699,8 @@
             <img loading="lazy" alt="FlappyPixel Games" src="asset/logo/FlapyPixel.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/80ffea/0b0f14?text=Flappy+Pixel'"/>
           </div>
           <div class="card-body">
-            <h4>FlappyPixel Games</h4>
-            <p>Klona Flappy Bird dengan estetika pixel art yang nostalgik. Tantang refleks Anda melewati rintangan yang semakin sulit dengan setiap sesi permainan.</p>
+            <h4 data-i18n="p7.name">FlappyPixel Games</h4>
+            <p data-i18n="p7.desc">Klona Flappy Bird dengan estetika pixel art yang nostalgik. Tantang refleks Anda melewati rintangan yang semakin sulit dengan setiap sesi permainan.</p>
             <div class="tags"><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
             <div class="cta">
               <a href="https://yogaariyanto.com/projects/gameyoga/game/FlappyPixel/index.html" class="btn btn-icon small primary">
@@ -724,12 +721,12 @@
   <!-- ===== CONTACT ===== -->
   <section id="contact" class="section container" data-aos="fade-up">
     <div class="section-head">
-      <h3 class="section-title">Kontak</h3>
-      <p class="section-desc">Punya project/kolab? Masuk aja ke DM.</p>
+      <h3 class="section-title" data-i18n="contact.title">Kontak</h3>
+      <p class="section-desc" data-i18n="contact.desc">Punya project/kolab? Masuk aja ke DM.</p>
     </div>
     <div class="contact-grid">
       <div class="contact-card glass">
-        <h4>Hubungi Saya</h4>
+        <h4 data-i18n="contact.card.title">Hubungi Saya</h4>
         <div class="card reach">
           <ul class="reach-list">
             <li>
@@ -738,7 +735,7 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
                 <div class="reach-info">
-                    <span class="reach-label">Email</span>
+                    <span class="reach-label" data-i18n="reach.email">Email</span>
                     <span class="reach-value">yogaariyanto972@gmail.com</span>
                 </div>
               </a>
@@ -749,7 +746,7 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </div>
                 <div class="reach-info">
-                    <span class="reach-label">Instagram</span>
+                    <span class="reach-label" data-i18n="reach.ig">Instagram</span>
                     <span class="reach-value">@agoy_312</span>
                 </div>
               </a>
@@ -760,7 +757,7 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 </div>
                 <div class="reach-info">
-                    <span class="reach-label">Website</span>
+                    <span class="reach-label" data-i18n="reach.web">Website</span>
                     <span class="reach-value">card.yogaariyanto.com</span>
                 </div>
               </a>
@@ -773,18 +770,18 @@
         <input type="hidden" name="_subject" value="[Portfolio] Pesan baru dari website Yoga">
 
         <div class="field">
-          <label for="field-name">Your name</label>
-          <input id="field-name" name="name" type="text" placeholder="e.g. John Doe" required />
+          <label for="field-name" data-i18n="form.name.label">Your name</label>
+          <input id="field-name" name="name" type="text" placeholder="e.g. John Doe" data-i18n-ph="form.name.ph" required />
         </div>
         <div class="field">
-          <label for="field-email">Your email</label>
-          <input id="field-email" name="email" type="email" placeholder="email@contoh.com" required />
+          <label for="field-email" data-i18n="form.email.label">Your email</label>
+          <input id="field-email" name="email" type="email" placeholder="email@contoh.com" data-i18n-ph="form.email.ph" required />
         </div>
         <div class="field">
-          <label for="field-message">Your message</label>
-          <textarea id="field-message" name="message" rows="4" placeholder="Tulis pesanmu..." required></textarea>
+          <label for="field-message" data-i18n="form.msg.label">Your message</label>
+          <textarea id="field-message" name="message" rows="4" placeholder="Tulis pesanmu..." data-i18n-ph="form.msg.ph" required></textarea>
         </div>
-        <button class="btn primary" type="submit">Send</button>
+        <button class="btn primary" type="submit" data-i18n="form.send">Send</button>
         <p id="form-status" style="margin:10px 0 0; color:var(--muted);" aria-live="polite"></p>
       </form>
     </div>
@@ -804,7 +801,7 @@
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container">
-      <p>© <span id="year"></span> Yoga Ariyanto — All Rights Reserved.</p>
+      <p data-i18n="footer">© {year} Yoga Ariyanto — All Rights Reserved.</p>
     </div>
   </footer>
 

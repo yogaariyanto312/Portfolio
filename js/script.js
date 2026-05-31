@@ -622,3 +622,127 @@ function Injil() {
       }
    });
 })();
+
+// ===== i18n — Bilingual (ID / EN) =====
+const TRANSLATIONS = {
+   id: {
+      'nav.home': 'Beranda', 'nav.about': 'Tentang', 'nav.skills': 'Skills',
+      'nav.experience': 'Experience', 'nav.projects': 'Projects', 'nav.contact': 'Kontak',
+      'hero.eyebrow': 'Halo, saya',
+      'hero.desc': 'Karena masa depan sungguh ada, dan harapanmu tidak akan hilang.',
+      'hero.btn.projects': 'Lihat Project', 'hero.btn.contact': 'Kontak Saya',
+      'about.title': 'About Me', 'about.desc': 'Sedikit informasi saya',
+      'about.who.title': 'Siapa Saya?',
+      'about.who.text': 'Saya <strong>QC Engineer</strong> di industri manufaktur listrik, sekaligus developer yang gemar mengeksplorasi <strong>web</strong> dan <strong>jaringan</strong>. Standar presisi yang saya terapkan sehari-hari turut membentuk cara saya menulis kode — <em>teliti, terstruktur, dan scalable.</em>',
+      'about.stat.exp': 'Years Exp', 'about.stat.projects': 'Projects', 'about.stat.committed': 'Committed',
+      'about.soft.title': 'Soft Skills', 'about.mission.title': 'Misi & Fokus',
+      'about.mission.text': 'Berfokus pada tantangan yang berdampak nyata — membangun sistem yang andal, menekan defect, dan menciptakan <em>user experience</em> yang intuitif.',
+      'skills.title': 'Skills', 'skills.desc': 'Skills yang saya miliki dan yang lagi saya kembangkan.',
+      'exp.title': 'Experience', 'exp.desc': 'Pengalaman kerja dan magang saya.',
+      'exp.job1.title': 'Quality Control',
+      'exp.job1.desc': 'Menjalankan quality control di lini produksi komponen listrik — mulai dari inspeksi visual dan dimensional welding, verifikasi WPS, hingga dokumentasi defect dan koordinasi perbaikan bersama tim produksi.',
+      'exp.job2.title': 'Quality Control Intern',
+      'exp.job2.desc': 'Mendukung proses QC perangkat CCTV melalui burn-in test, inspeksi jaringan, verifikasi firmware, dan penanganan unit DOA — pengalaman yang membentuk dasar pendekatan sistematis saya dalam quality assurance.',
+      'projects.title': 'Projects', 'projects.desc': 'Karya dan eksperimen terbaru.',
+      'filter.all': 'All', 'filter.web': 'Web', 'filter.server': 'Server', 'filter.game': 'Game',
+      'p1.name': 'NeedTwoGoo', 'p1.desc': 'Server Minecraft self-hosted yang dikelola dengan AMP Panel dan Docker — dirancang untuk memberikan pengalaman bermain yang stabil dan mudah diakses.',
+      'p2.name': 'Card-LinkTree Clone', 'p2.desc': 'Halaman link personal bergaya modern dengan efek glassmorphism dan animasi halus — satu tautan untuk semua profil sosial media dan karya.',
+      'p3.name': 'QC Process Tracker', 'p3.desc': 'Dashboard berbasis web untuk memantau dan mendokumentasikan proses quality control di lini produksi — mempermudah pencatatan inspeksi dan pelacakan defect.',
+      'p4.name': 'TowerGame', 'p4.desc': 'Game stack tower berbasis browser yang menantang refleks dan presisi pemain. Dibangun murni dengan HTML, CSS, dan JavaScript tanpa library game engine.',
+      'p5.name': 'Snake Games', 'p5.desc': 'Implementasi klasik game ular dengan kontrol yang responsif dan sistem high score. Dibangun dengan JavaScript vanilla untuk pengalaman bermain yang mulus langsung di browser.',
+      'p6.name': 'Chess Games', 'p6.desc': 'Game catur interaktif berbasis web dengan logika pergerakan bidak yang lengkap. Cocok untuk berlatih strategi catur kapan saja langsung dari browser.',
+      'p7.name': 'FlappyPixel Games', 'p7.desc': 'Klona Flappy Bird dengan estetika pixel art yang nostalgik. Tantang refleks Anda melewati rintangan yang semakin sulit dengan setiap sesi permainan.',
+      'contact.title': 'Kontak', 'contact.desc': 'Punya project/kolab? Masuk aja ke DM.',
+      'contact.card.title': 'Hubungi Saya',
+      'form.name.label': 'Your name', 'form.name.ph': 'cth. Budi Santoso',
+      'form.email.label': 'Your email', 'form.email.ph': 'email@contoh.com',
+      'form.msg.label': 'Your message', 'form.msg.ph': 'Tulis pesanmu...',
+      'form.send': 'Kirim',
+      'reach.email': 'Email', 'reach.ig': 'Instagram', 'reach.web': 'Website',
+      'footer': '© {year} Yoga Ariyanto — All Rights Reserved.',
+      'roles': ['QC Engineering', 'Web Developer', 'Network Engineer', 'Server Developer', 'Welder & Fabricator'],
+   },
+   en: {
+      'nav.home': 'Home', 'nav.about': 'About', 'nav.skills': 'Skills',
+      'nav.experience': 'Experience', 'nav.projects': 'Projects', 'nav.contact': 'Contact',
+      'hero.eyebrow': 'Hello, I am',
+      'hero.desc': 'For surely there is a future, and your hope will not be cut off.',
+      'hero.btn.projects': 'View Projects', 'hero.btn.contact': 'Contact Me',
+      'about.title': 'About Me', 'about.desc': 'A little about myself',
+      'about.who.title': 'Who Am I?',
+      'about.who.text': 'I\'m a <strong>QC Engineer</strong> in the electrical manufacturing industry, also a developer who loves exploring <strong>web</strong> and <strong>networking</strong>. The precision standards I apply daily also shape how I write code — <em>careful, structured, and scalable.</em>',
+      'about.stat.exp': 'Years Exp', 'about.stat.projects': 'Projects', 'about.stat.committed': 'Committed',
+      'about.soft.title': 'Soft Skills', 'about.mission.title': 'Mission & Focus',
+      'about.mission.text': 'Focused on impactful challenges — building reliable systems, reducing defects, and creating intuitive <em>user experiences</em>.',
+      'skills.title': 'Skills', 'skills.desc': 'Skills I have and am currently developing.',
+      'exp.title': 'Experience', 'exp.desc': 'My work and internship experience.',
+      'exp.job1.title': 'Quality Control',
+      'exp.job1.desc': 'Running quality control on electrical component production lines — from visual and dimensional welding inspection, WPS verification, to defect documentation and repair coordination with the production team.',
+      'exp.job2.title': 'Quality Control Intern',
+      'exp.job2.desc': 'Supporting CCTV device QC processes through burn-in testing, network inspection, firmware verification, and DOA unit handling — experience that formed the foundation of my systematic approach to quality assurance.',
+      'projects.title': 'Projects', 'projects.desc': 'Latest works and experiments.',
+      'filter.all': 'All', 'filter.web': 'Web', 'filter.server': 'Server', 'filter.game': 'Game',
+      'p1.name': 'NeedTwoGoo', 'p1.desc': 'A self-hosted Minecraft server managed with AMP Panel and Docker — designed to provide a stable and easily accessible gaming experience.',
+      'p2.name': 'Card-LinkTree Clone', 'p2.desc': 'A modern personal link page with glassmorphism effects and smooth animations — one link for all social media profiles and works.',
+      'p3.name': 'QC Process Tracker', 'p3.desc': 'A web-based dashboard for monitoring and documenting quality control processes on production lines — simplifying inspection recording and defect tracking.',
+      'p4.name': 'TowerGame', 'p4.desc': 'A browser-based stack tower game that challenges player reflexes and precision. Built purely with HTML, CSS, and JavaScript without a game engine library.',
+      'p5.name': 'Snake Games', 'p5.desc': 'Classic snake game implementation with responsive controls and a high score system. Built with vanilla JavaScript for a smooth in-browser experience.',
+      'p6.name': 'Chess Games', 'p6.desc': 'An interactive web-based chess game with complete piece movement logic. Perfect for practicing chess strategy anytime directly in the browser.',
+      'p7.name': 'FlappyPixel Games', 'p7.desc': 'A Flappy Bird clone with nostalgic pixel art aesthetics. Challenge your reflexes navigating increasingly difficult obstacles with each session.',
+      'contact.title': 'Contact', 'contact.desc': 'Have a project or collab? Slide into my DMs.',
+      'contact.card.title': 'Get in Touch',
+      'form.name.label': 'Your name', 'form.name.ph': 'e.g. John Doe',
+      'form.email.label': 'Your email', 'form.email.ph': 'email@example.com',
+      'form.msg.label': 'Your message', 'form.msg.ph': 'Write your message...',
+      'form.send': 'Send',
+      'reach.email': 'Email', 'reach.ig': 'Instagram', 'reach.web': 'Website',
+      'footer': '© {year} Yoga Ariyanto — All Rights Reserved.',
+      'roles': ['QC Engineering', 'Web Developer', 'Network Engineer', 'Server Developer', 'Welder & Fabricator'],
+   }
+};
+
+let currentLang = localStorage.getItem('lang') || 'id';
+
+function applyLang(lang) {
+   const t = TRANSLATIONS[lang];
+   currentLang = lang;
+   localStorage.setItem('lang', lang);
+   document.documentElement.setAttribute('lang', lang === 'id' ? 'id' : 'en');
+
+   // Text content
+   document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key].replace('{year}', new Date().getFullYear());
+   });
+
+   // Inner HTML (bold/italic inside text)
+   document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+   });
+
+   // Placeholders
+   document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+   });
+
+   // Lang toggle button label
+   const btn = document.getElementById('lang-toggle');
+   if (btn) btn.textContent = lang === 'id' ? 'EN' : 'ID';
+
+   // Update typing roles
+   if (t.roles) {
+      roles.length = 0;
+      t.roles.forEach(r => roles.push(r));
+   }
+}
+
+const langBtn = document.getElementById('lang-toggle');
+if (langBtn) {
+   langBtn.addEventListener('click', () => {
+      applyLang(currentLang === 'id' ? 'en' : 'id');
+   });
+}
+
+applyLang(currentLang);
